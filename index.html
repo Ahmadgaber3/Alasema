@@ -56,10 +56,14 @@
             background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('images/app-bg.jpg');
         }
 
-        /* --- شاشة الترحيب --- */
+        /* --- شاشة الترحيب (محدثة بخلفية splash-bg.jpg المخصصة) --- */
         #splash-screen {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: var(--white); z-index: 9999;
+            background-image: url('splash-bg.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            z-index: 9999;
             display: flex; justify-content: center; align-items: center;
             transition: 0.8s cubic-bezier(0.65, 0, 0.35, 1);
         }
@@ -67,32 +71,34 @@
         .loader-logo-big {
             width: 150px; height: 150px; border-radius: 50%;
             margin-bottom: 20px; animation: pulse 1.5s infinite ease-in-out;
-            object-fit: cover; box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+            object-fit: cover; box-shadow: 0 15px 40px rgba(0,0,0,0.3);
             border: 3px solid var(--accent);
+            background-color: rgba(0, 0, 0, 0.4);
         }
-        .loader-text { font-weight: 800; color: var(--accent); font-size: 2rem; margin-bottom: 4px; }
-        .loader-sub { font-weight: 700; color: var(--main-text); font-size: 1.1rem; margin-bottom: 8px; }
-        .loader-slogan { font-size: 1rem; color: var(--desc-text); font-weight: 600; font-style: italic; }
-        .loading-bar { width: 180px; height: 6px; background: rgba(0,0,0,0.06); margin: 25px auto 10px auto; border-radius: 10px; overflow: hidden; position: relative; }
+        .loader-text { font-weight: 800; color: var(--accent); font-size: 2.2rem; margin-bottom: 4px; text-shadow: 0 2px 4px rgba(0,0,0,0.8); }
+        .loader-sub { font-weight: 700; color: #ffffff; font-size: 1.15rem; margin-bottom: 8px; text-shadow: 0 2px 4px rgba(0,0,0,0.8); }
+        .loader-slogan { font-size: 1rem; color: #e0e0e0; font-weight: 600; font-style: italic; text-shadow: 0 2px 4px rgba(0,0,0,0.8); }
+        .loading-bar { width: 180px; height: 6px; background: rgba(255,255,255,0.2); margin: 25px auto 10px auto; border-radius: 10px; overflow: hidden; position: relative; }
         .loading-bar span { display: block; width: 0; height: 100%; background: var(--accent); animation: progress 4s linear forwards; }
         
         .creative-counter {
             font-size: 0.95rem;
             font-weight: 800;
             color: var(--accent);
-            background: rgba(212, 175, 55, 0.08);
-            padding: 4px 14px;
+            background: rgba(0, 0, 0, 0.6);
+            padding: 6px 16px;
             border-radius: 20px;
             display: inline-flex;
             align-items: center;
             gap: 4px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.02);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.4);
             transform: translateY(5px);
             opacity: 0;
             animation: fadeInCounter 0.3s ease forwards;
+            border: 1px solid rgba(212, 175, 55, 0.3);
         }
         .creative-counter span {
-            color: var(--main-text);
+            color: #ffffff;
             font-variant-numeric: tabular-nums;
         }
         @keyframes fadeInCounter { to { opacity: 1; transform: translateY(0); } }
