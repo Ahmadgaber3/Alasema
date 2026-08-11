@@ -39,10 +39,10 @@
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Cairo', sans-serif; -webkit-tap-highlight-color: transparent; transition: background 0.3s, color 0.3s; }
         
-        /* تعديل الخلفية لتعتمد على صورة مخصصة مع الاحتفاظ بالنظام الفاتح والداكن */
+        /* ضبط الخلفية المخصصة وتدرج الألوان للوضع الفاتح والداكن */
         body { 
             background-color: var(--bg); 
-            background-image: linear-gradient(rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.05)), url('images/app-bg.jpg');
+            background-image: linear-gradient(rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.85)), url('images/app-bg.jpg');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
@@ -53,13 +53,13 @@
         }
 
         body.dark-mode {
-            background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('images/app-bg.jpg');
+            background-image: linear-gradient(rgba(18, 18, 18, 0.9), rgba(18, 18, 18, 0.9)), url('images/app-bg.jpg');
         }
 
-        /* --- شاشة الترحيب (محدثة بخلفية splash-bg.jpg المخصصة) --- */
+        /* --- شاشة الترحيب --- */
         #splash-screen {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background-image: url('splash-bg.jpg');
+            background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('images/splash-bg.jpg');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
@@ -106,7 +106,7 @@
         @keyframes progress { from { width: 0; } to { width: 100%; } }
         .splash-hidden { transform: translateY(-100%); pointer-events: none; }
 
-        /* --- الهيدر --- */
+        /* --- الهيدر وباقي العناصر --- */
         header { 
             background: var(--header-bg); 
             position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 15px rgba(0,0,0,0.04);
@@ -132,21 +132,10 @@
         .app-inner-slogan { font-size: 0.85rem; color: var(--desc-text); font-style: italic; font-weight: 600; }
 
         .admin-trigger-btn {
-            position: absolute;
-            right: 75px;
-            top: 0;
-            width: 45px;
-            height: 45px;
-            background: var(--bg);
-            border-radius: 14px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            font-size: 1.2rem;
-            border: none;
-            color: var(--main-text);
-            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            position: absolute; right: 75px; top: 0; width: 45px; height: 45px;
+            background: var(--bg); border-radius: 14px; display: flex; align-items: center;
+            justify-content: center; cursor: pointer; font-size: 1.2rem; border: none;
+            color: var(--main-text); box-shadow: 0 2px 8px rgba(0,0,0,0.04);
             transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
         .admin-trigger-btn:active { transform: scale(0.9); }
@@ -1012,7 +1001,7 @@
                     return alert("كلمة المرور الحالية غير صحيحة!");
                 }
 
-                const newVersion = 'v_' + Date.now();
+                The newVersion = 'v_' + Date.now();
                 await setDoc(doc(db, "settings", "password"), { value: newPass, version: newVersion });
                 
                 localStorage.setItem('is_restaurant_owner', 'true');
@@ -1020,7 +1009,7 @@
                 localStorage.setItem('admin_access_count', '1');
                 
                 alert("تم تحديث كلمة المرور بنجاح، وأصبح هذا الجهاز هو المعتمد للإشعارات فقط!");
-                document.getElementById('currentAdminPass').value, document.getElementById('currentAdminPass').value = '';
+                document.getElementById('currentAdminPass').value = '';
                 document.getElementById('newAdminPass').value = '';
                 document.getElementById('confirmAdminPass').value = '';
             } catch (e) {
