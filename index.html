@@ -55,7 +55,7 @@
             background-image: linear-gradient(rgba(18, 18, 18, 0.9), rgba(18, 18, 18, 0.9)), url('images/app-bg.jpg');
         }
 
-        /* --- شاشة الترحيب (بدون لوجو، مع إنزال العداد للأسفل) --- */
+        /* --- شاشة الترحيب (بدون لوجو، مع رفع العداد حوالي 1.5 سم للأعلى) --- */
         #splash-screen {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url('images/splash-bg.jpg');
@@ -63,8 +63,8 @@
             background-position: center center;
             background-repeat: no-repeat;
             z-index: 9999;
-            display: flex; justify-content: center; align-items: flex-end; /* تم التعديل لتكون العناصر للأسفل */
-            padding: 0 20px 80px 20px; /* مسافة من الأسفل لإنزال العداد قليلاً */
+            display: flex; justify-content: center; align-items: flex-end;
+            padding: 0 20px 135px 20px; /* تم رفع المسافة السفلية لرفع العداد للأعلى بالمسافة المطلوبة */
             transition: 0.8s cubic-bezier(0.65, 0, 0.35, 1);
         }
         
@@ -283,7 +283,7 @@
 </head>
 <body>
 
-    <!-- شاشة الترحيب (بدون لوجو، والعداد في الأسفل) -->
+    <!-- شاشة الترحيب (بدون لوجو، والعداد مرفوع للأعلى بالمقدار المطلوب) -->
     <div id="splash-screen">
         <div class="loader-content">
             <div class="loading-bar"><span id="progressBarFill"></span></div>
