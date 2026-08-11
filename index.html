@@ -55,15 +55,16 @@
             background-image: linear-gradient(rgba(18, 18, 18, 0.9), rgba(18, 18, 18, 0.9)), url('images/app-bg.jpg');
         }
 
-        /* --- شاشة الترحيب (مصممة بدقة لتطابق أبعاد وتصميم الصورة تماماً بدون أي عناصر إضافية) --- */
+        /* --- شاشة الترحيب (ضبط العداد ليصبح تحت اللوجو تماماً) --- */
         #splash-screen {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background-image: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.35)), url('images/splash-bg.jpg');
+            background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url('images/splash-bg.jpg');
             background-size: cover;
-            background-position: center;
+            background-position: center center;
             background-repeat: no-repeat;
             z-index: 9999;
             display: flex; justify-content: center; align-items: center;
+            padding: 0 20px;
             transition: 0.8s cubic-bezier(0.65, 0, 0.35, 1);
         }
         
@@ -282,9 +283,12 @@
 </head>
 <body>
 
-    <!-- شاشة الترحيب (بدون أي نصوص أو شعارات، فقط الخلفية العالية الجودة وشريط التحميل المتحرك والعداد الدقيق) -->
+    <!-- شاشة الترحيب (العداد أصبح تحت اللوجو مباشرة) -->
     <div id="splash-screen">
         <div class="loader-content">
+            <div class="header-logo-container" style="width: 110px; height: 110px; margin: 0 auto 18px auto;">
+                <img src="images/logohayah.png" class="header-logo">
+            </div>
             <div class="loading-bar"><span id="progressBarFill"></span></div>
             <div class="creative-counter">جاري التحضير... <span id="loadPercentage">0</span>%</div>
         </div>
