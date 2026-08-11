@@ -39,7 +39,6 @@
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Cairo', sans-serif; -webkit-tap-highlight-color: transparent; transition: background 0.3s, color 0.3s; }
         
-        /* ضبط الخلفية المخصصة وتدرج الألوان للوضع الفاتح والداكن */
         body { 
             background-color: var(--bg); 
             background-image: linear-gradient(rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.85)), url('images/app-bg.jpg');
@@ -56,10 +55,10 @@
             background-image: linear-gradient(rgba(18, 18, 18, 0.9), rgba(18, 18, 18, 0.9)), url('images/app-bg.jpg');
         }
 
-        /* --- شاشة الترحيب --- */
+        /* --- شاشة الترحيب (مصممة بدقة لتطابق أبعاد وتصميم الصورة تماماً بدون أي عناصر إضافية) --- */
         #splash-screen {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('images/splash-bg.jpg');
+            background-image: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.35)), url('images/splash-bg.jpg');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
@@ -67,44 +66,57 @@
             display: flex; justify-content: center; align-items: center;
             transition: 0.8s cubic-bezier(0.65, 0, 0.35, 1);
         }
-        .loader-content { text-align: center; }
-        .loader-logo-big {
-            width: 150px; height: 150px; border-radius: 50%;
-            margin-bottom: 20px; animation: pulse 1.5s infinite ease-in-out;
-            object-fit: cover; box-shadow: 0 15px 40px rgba(0,0,0,0.3);
-            border: 3px solid var(--accent);
-            background-color: rgba(0, 0, 0, 0.4);
+        
+        .loader-content { 
+            text-align: center; 
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            max-width: 320px;
+            padding: 0 20px;
         }
-        .loader-text { font-weight: 800; color: var(--accent); font-size: 2.2rem; margin-bottom: 4px; text-shadow: 0 2px 4px rgba(0,0,0,0.8); }
-        .loader-sub { font-weight: 700; color: #ffffff; font-size: 1.15rem; margin-bottom: 8px; text-shadow: 0 2px 4px rgba(0,0,0,0.8); }
-        .loader-slogan { font-size: 1rem; color: #e0e0e0; font-weight: 600; font-style: italic; text-shadow: 0 2px 4px rgba(0,0,0,0.8); }
-        .loading-bar { width: 180px; height: 6px; background: rgba(255,255,255,0.2); margin: 25px auto 10px auto; border-radius: 10px; overflow: hidden; position: relative; }
-        .loading-bar span { display: block; width: 0; height: 100%; background: var(--accent); animation: progress 4s linear forwards; }
+
+        /* شريط التحميل المطور والمضبوط ليعمل بدقة */
+        .loading-bar { 
+            width: 100%; 
+            max-width: 240px; 
+            height: 6px; 
+            background: rgba(255, 255, 255, 0.25); 
+            margin: 0 auto 15px auto; 
+            border-radius: 10px; 
+            overflow: hidden; 
+            position: relative; 
+            box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+        }
+        .loading-bar span { 
+            display: block; 
+            width: 0%; 
+            height: 100%; 
+            background: var(--accent); 
+            border-radius: 10px;
+        }
         
         .creative-counter {
             font-size: 0.95rem;
             font-weight: 800;
             color: var(--accent);
-            background: rgba(0, 0, 0, 0.6);
-            padding: 6px 16px;
-            border-radius: 20px;
+            background: rgba(0, 0, 0, 0.65);
+            padding: 8px 22px;
+            border-radius: 30px;
             display: inline-flex;
             align-items: center;
-            gap: 4px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.4);
-            transform: translateY(5px);
-            opacity: 0;
-            animation: fadeInCounter 0.3s ease forwards;
-            border: 1px solid rgba(212, 175, 55, 0.3);
+            gap: 6px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            border: 1px solid rgba(212, 175, 55, 0.35);
         }
         .creative-counter span {
             color: #ffffff;
             font-variant-numeric: tabular-nums;
         }
-        @keyframes fadeInCounter { to { opacity: 1; transform: translateY(0); } }
-        @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.06); } }
-        @keyframes progress { from { width: 0; } to { width: 100%; } }
-        .splash-hidden { transform: translateY(-100%); pointer-events: none; }
+        
+        .splash-hidden { transform: translateY(-100%); opacity: 0; pointer-events: none; }
 
         /* --- الهيدر وباقي العناصر --- */
         header { 
@@ -270,14 +282,10 @@
 </head>
 <body>
 
-    <!-- شاشة الترحيب -->
+    <!-- شاشة الترحيب (بدون أي نصوص أو شعارات، فقط الخلفية العالية الجودة وشريط التحميل المتحرك والعداد الدقيق) -->
     <div id="splash-screen">
         <div class="loader-content">
-            <img src="images/logohayah.png" class="loader-logo-big">
-            <h2 class="loader-text">العاصمة</h2>
-            <p class="loader-sub">مطعم وكافيه</p>
-            <p class="loader-slogan">عاصمة الأكل العربي ❤️</p>
-            <div class="loading-bar"><span></span></div>
+            <div class="loading-bar"><span id="progressBarFill"></span></div>
             <div class="creative-counter">جاري التحضير... <span id="loadPercentage">0</span>%</div>
         </div>
     </div>
@@ -348,7 +356,7 @@
 
                 <div id="tabPassword" class="admin-section">
                     <div class="pass-form">
-                        <p style="margin-bottom: 10px; font-weight: 700; font-size: 0.85rem; color: var(--desc-text);">تغيير كلمة مرور الإدارة (أدخل الباسورد الحالي، ثم الجديد، وتأكيد الجديد):</p>
+                        <p style="margin-bottom: 10px; font-weight: 700; font-size: 0.85rem; color: var(--desc-text);">تغيير كلمة مرور الإدارة:</p>
                         <input type="password" id="currentAdminPass" placeholder="كلمة المرور الحالية">
                         <input type="password" id="newAdminPass" placeholder="كلمة المرور الجديدة">
                         <input type="password" id="confirmAdminPass" placeholder="تأكيد كلمة المرور الجديدة">
@@ -359,7 +367,7 @@
         </div>
     </div>
 
-    <!-- شريط تثبيت التطبيق لكل زائر جديد -->
+    <!-- شريط تثبيت التطبيق -->
     <div id="install-bar">
         <span class="install-text">📱 ثبت ابلكيشن العاصمة الآن</span>
         <button class="install-btn" onclick="triggerInstall()">تثبيت</button>
@@ -368,7 +376,7 @@
     <div id="iosPopup" class="ios-popup" onclick="if(event.target==this) this.style.display='none'">
         <div class="ios-content">
             <h3>تثبيت تطبيق العاصمة للأيفون</h3>
-            <p>اضغط على زر المشاركة السفلي <span style="font-size:1.2rem;"> Compartir ⇧</span> في متصفح Safari، ثم اختر <b>"إضافة إلى الشاشة الرئيسية ➕"</b>.</p>
+            <p>اضغط على زر المشاركة السفلي في متصفح Safari، ثم اختر <b>"إضافة إلى الشاشة الرئيسية ➕"</b>.</p>
             <button class="ios-close" onclick="document.getElementById('iosPopup').style.display='none'">حسناً</button>
         </div>
     </div>
@@ -482,6 +490,7 @@
 
         function startCreativeCounter() {
             const counterEl = document.getElementById('loadPercentage');
+            const barFill = document.getElementById('progressBarFill');
             let count = 0;
             const duration = 3800;
             const intervalTime = duration / 100;
@@ -490,6 +499,7 @@
                 count++;
                 if (count <= 100) {
                     counterEl.innerText = count;
+                    barFill.style.width = count + '%';
                 } else {
                     clearInterval(timer);
                 }
@@ -542,29 +552,6 @@
                 if (!isFirstLoad && snapshot.docChanges().some(change => change.type === 'added')) {
                     if (localStorage.getItem('is_restaurant_owner') === 'true') {
                         playHighPriorityOrderAlert();
-                        
-                        if ("Notification" in window && Notification.permission === "granted") {
-                            try {
-                                const notifTitle = "أوردر جديد 🍗 - مطعم وكافيه العاصمة";
-                                const notifOptions = {
-                                    body: "🔔 هناك أوردر جديد تم تأكيده للتو من العميل!",
-                                    icon: "./images/logohayah.png",
-                                    badge: "./images/logohayah.png",
-                                    tag: "hayah_new_order_exact",
-                                    requireInteraction: true
-                                };
-
-                                if ('serviceWorker' in navigator && navigator.serviceWorker.controller) {
-                                    navigator.serviceWorker.ready.then(registration => {
-                                        registration.showNotification(notifTitle, notifOptions);
-                                    });
-                                } else {
-                                    new Notification(notifTitle, notifOptions);
-                                }
-                            } catch (err) {
-                                console.log("Push notification error:", err);
-                            }
-                        }
                     }
                 }
                 isFirstLoad = false;
@@ -779,7 +766,7 @@
                     name: n,
                     phone: p,
                     type: typeLabel,
-                    address: selectedOrderType === 'delivery' ? a : 'استلام من التكي أواي',
+                    address: selectedOrderType === 'delivery' ? a : 'استلام من التيك أواي',
                     itemsText: orderDetailsStr,
                     total: currentTotal,
                     timestamp: Date.now(),
@@ -843,7 +830,6 @@
                 if (inputPass === correctPass) {
                     localStorage.setItem('is_restaurant_owner', 'true');
                     localStorage.setItem('admin_access_count', '1');
-                    document.getElementById('adminAuthInput') ? document.getElementById('adminAuthInput').value = '' : '';
                     document.getElementById('adminPassInput').value = '';
                     document.getElementById('adminAuthView').style.display = 'none';
                     document.getElementById('adminDashboardView').style.display = 'block';
@@ -1001,14 +987,14 @@
                     return alert("كلمة المرور الحالية غير صحيحة!");
                 }
 
-                The newVersion = 'v_' + Date.now();
+                const newVersion = 'v_' + Date.now();
                 await setDoc(doc(db, "settings", "password"), { value: newPass, version: newVersion });
                 
                 localStorage.setItem('is_restaurant_owner', 'true');
                 localStorage.setItem('owner_pass_version', newVersion);
                 localStorage.setItem('admin_access_count', '1');
                 
-                alert("تم تحديث كلمة المرور بنجاح، وأصبح هذا الجهاز هو المعتمد للإشعارات فقط!");
+                alert("تم تحديث كلمة المرور بنجاح!");
                 document.getElementById('currentAdminPass').value = '';
                 document.getElementById('newAdminPass').value = '';
                 document.getElementById('confirmAdminPass').value = '';
@@ -1031,7 +1017,6 @@
                 }).catch(err => console.log('SW registration failed:', err));
             }
 
-            const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
             const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
 
             if (!isStandalone) {
@@ -1059,7 +1044,7 @@
                     deferredPrompt = null;
                 });
             } else {
-                alert("للتثبيت، يرجى الضغط على قائمة المتصفح (النقاط الثلاث بالأعلى) ثم اختيار 'إضافة إلى الشاشة الرئيسية' أو 'تثبيت التطبيق'.");
+                alert("للتثبيت، يرجى الضغط على قائمة المتصفح ثم اختيار 'إضافة إلى الشاشة الرئيسية'.");
             }
         }
 
