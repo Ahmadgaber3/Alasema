@@ -55,7 +55,7 @@
             background-image: linear-gradient(rgba(18, 18, 18, 0.9), rgba(18, 18, 18, 0.9)), url('images/app-bg.jpg');
         }
 
-        /* --- شاشة الترحيب (ضبط العداد ليصبح تحت اللوجو تماماً) --- */
+        /* --- شاشة الترحيب (بدون لوجو، مع إنزال العداد للأسفل) --- */
         #splash-screen {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url('images/splash-bg.jpg');
@@ -63,8 +63,8 @@
             background-position: center center;
             background-repeat: no-repeat;
             z-index: 9999;
-            display: flex; justify-content: center; align-items: center;
-            padding: 0 20px;
+            display: flex; justify-content: center; align-items: flex-end; /* تم التعديل لتكون العناصر للأسفل */
+            padding: 0 20px 80px 20px; /* مسافة من الأسفل لإنزال العداد قليلاً */
             transition: 0.8s cubic-bezier(0.65, 0, 0.35, 1);
         }
         
@@ -283,12 +283,9 @@
 </head>
 <body>
 
-    <!-- شاشة الترحيب (العداد أصبح تحت اللوجو مباشرة) -->
+    <!-- شاشة الترحيب (بدون لوجو، والعداد في الأسفل) -->
     <div id="splash-screen">
         <div class="loader-content">
-            <div class="header-logo-container" style="width: 110px; height: 110px; margin: 0 auto 18px auto;">
-                <img src="images/logohayah.png" class="header-logo">
-            </div>
             <div class="loading-bar"><span id="progressBarFill"></span></div>
             <div class="creative-counter">جاري التحضير... <span id="loadPercentage">0</span>%</div>
         </div>
