@@ -55,7 +55,7 @@
             background-image: linear-gradient(rgba(18, 18, 18, 0.9), rgba(18, 18, 18, 0.9)), url('images/app-bg.jpg');
         }
 
-        /* --- شاشة الترحيب (تم زيادة المسافة السفلية لرفع العداد والـ loader سنتي ونص إضافية) --- */
+        /* --- شاشة الترحيب --- */
         #splash-screen {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url('images/splash-bg.jpg');
@@ -64,7 +64,7 @@
             background-repeat: no-repeat;
             z-index: 9999;
             display: flex; justify-content: center; align-items: flex-end;
-            padding: 0 20px 190px 20px; /* تم تعديل المسافة السفلية لرفع العداد للأعلى */
+            padding: 0 20px 190px 20px;
             transition: 0.8s cubic-bezier(0.65, 0, 0.35, 1);
         }
         
@@ -79,7 +79,6 @@
             padding: 0 20px;
         }
 
-        /* شريط التحميل المطور والمضبوط ليعمل بدقة */
         .loading-bar { 
             width: 100%; 
             max-width: 240px; 
@@ -97,6 +96,7 @@
             height: 100%; 
             background: var(--accent); 
             border-radius: 10px;
+            transition: width 0.1s linear;
         }
         
         .creative-counter {
@@ -119,7 +119,7 @@
         
         .splash-hidden { transform: translateY(-100%); opacity: 0; pointer-events: none; }
 
-        /* --- الهيدر وباقي العناصر --- */
+        /* --- الهيدر والعناصر --- */
         header { 
             background: var(--header-bg); 
             position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 15px rgba(0,0,0,0.04);
@@ -153,7 +153,13 @@
         }
         .admin-trigger-btn:active { transform: scale(0.9); }
 
-        .category-nav { display: flex; overflow-x: auto; white-space: nowrap; padding: 15px 10px; gap: 15px; scrollbar-width: none; background: var(--glass); backdrop-filter: blur(20px); width: 100%; border-top: 0.5px solid rgba(0,0,0,0.04); border-bottom: 0.5px solid rgba(0,0,0,0.06); }
+        .category-nav { 
+            display: flex; overflow-x: auto; white-space: nowrap; padding: 15px 10px; gap: 15px; 
+            scrollbar-width: none; background: var(--glass); backdrop-filter: blur(20px); width: 100%; 
+            border-top: 0.5px solid rgba(0,0,0,0.04); border-bottom: 0.5px solid rgba(0,0,0,0.06); 
+            scroll-behavior: smooth;
+        }
+        .category-nav::-webkit-scrollbar { display: none; }
         .cat-item { display: flex; flex-direction: column; align-items: center; min-width: 80px; cursor: pointer; }
         .cat-img-box { width: 55px; height: 55px; border-radius: 16px; background: #dcdfe3; overflow: hidden; border: 2.5px solid transparent; transition: 0.3s; }
         .cat-img-box img { width: 100%; height: 100%; object-fit: cover; }
@@ -183,22 +189,6 @@
         .order-btn:disabled { background: #95a5a6 !important; cursor: not-allowed; box-shadow: none !important; }
         .order-btn.added { background: var(--success-dark); color: white; box-shadow: 0 4px 10px rgba(39, 174, 96, 0.3); }
         .fly-item { position: fixed; z-index: 9999; pointer-events: none; width: 30px; height: 30px; background: var(--accent); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 15px; transition: all 0.7s cubic-bezier(0.19, 1, 0.22, 1); }
-
-        #install-bar {
-            position: fixed; bottom: 0; left: 0; width: 100%; background: var(--accent);
-            color: white; padding: 16px 20px; display: none; justify-content: space-between;
-            align-items: center; z-index: 2500; box-shadow: 0 -4px 20px rgba(0,0,0,0.2);
-            border-radius: 24px 24px 0 0; animation: slideUp 0.4s ease forwards;
-        }
-        @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
-        .install-text { font-weight: 800; font-size: 0.95rem; display: flex; align-items: center; gap: 8px; }
-        .install-btn { background: var(--white); color: var(--accent); border: none; padding: 10px 22px; border-radius: 14px; font-weight: 800; font-size: 0.9rem; cursor: pointer; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
-
-        .ios-popup { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 3000; display: none; justify-content: center; align-items: center; padding: 20px; }
-        .ios-content { background: var(--white); color: var(--main-text); padding: 25px; border-radius: 24px; text-align: center; max-width: 320px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
-        .ios-content h3 { margin-bottom: 12px; font-size: 1.1rem; color: var(--accent); }
-        .ios-content p { font-size: 0.9rem; margin-bottom: 15px; font-weight: 600; line-height: 1.5; }
-        .ios-close { background: var(--accent); color: white; border: none; padding: 6px 20px; border-radius: 10px; cursor: pointer; font-weight: 700; }
 
         .restaurant-footer { padding: 30px 20px; text-align: center; background: var(--white); border-top: 1px solid rgba(0,0,0,0.04); margin-top: 20px; }
         
@@ -230,6 +220,45 @@
         .user-fields input { background: var(--bg); border: 1px solid rgba(0,0,0,0.08); padding: 16px; border-radius: 14px; width: 100%; margin-bottom: 10px; color: var(--main-text); text-align: right; }
         #uAddr { transition: all 0.3s ease; }
         .submit-btn { background: var(--accent); color: white; border: none; padding: 18px; border-radius: 18px; width: 100%; font-weight: 800; cursor: pointer; }
+
+        /* --- تصميم شاشة نجاح الطلب (المعدّلة) --- */
+        .success-modal {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.75); z-index: 5000; display: none;
+            justify-content: center; align-items: center; padding: 20px;
+            backdrop-filter: blur(8px);
+            cursor: pointer;
+        }
+        .success-card {
+            background: var(--white); width: 100%; max-width: 380px;
+            border-radius: 28px; padding: 35px 25px; text-align: center;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+            animation: successPop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: flex; flex-direction: column; align-items: center;
+            cursor: default;
+        }
+        @keyframes successPop {
+            from { transform: scale(0.7); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+        
+        .success-icon-wrapper {
+            width: 90px; height: 90px; background: rgba(39, 174, 96, 0.12);
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            margin-bottom: 20px; border: 2px solid var(--success-dark);
+        }
+        .success-icon-wrapper svg {
+            width: 50px; height: 50px; fill: var(--success-dark);
+            animation: checkCheck 0.5s ease-in-out forwards;
+        }
+        @keyframes checkCheck {
+            0% { transform: scale(0) rotate(-45deg); opacity: 0; }
+            70% { transform: scale(1.2) rotate(0deg); opacity: 1; }
+            100% { transform: scale(1) rotate(0deg); opacity: 1; }
+        }
+
+        .success-title { font-size: 1.4rem; font-weight: 800; color: var(--main-text); margin-bottom: 10px; }
+        .success-sub { font-size: 0.95rem; color: var(--desc-text); font-weight: 600; line-height: 1.5; margin: 0; }
 
         /* لوحة التحكم */
         .admin-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 4000; display: none; justify-content: center; align-items: center; backdrop-filter: blur(5px); padding: 15px; }
@@ -297,7 +326,7 @@
             <button class="theme-toggle" onclick="toggleTheme()" id="themeBtn">🌙</button>
             <button class="admin-trigger-btn" onclick="openAdminPanel()" title="لوحة التحكم">⚙️</button>
             <div class="header-logo-container">
-                <img src="images/logohayah.png" class="header-logo">
+                <img src="images/logohayah.png" class="header-logo" alt="لوجو مطعم العاصمة">
             </div>
             <div class="cart-trigger-container">
                 <div class="cart-trigger" onclick="toggleCart(true)" id="cartBtn">
@@ -315,6 +344,19 @@
     </header>
 
     <div id="menuList" class="menu-list"></div>
+
+    <!-- نافذة نجاح الطلب (تمت التصفية) -->
+    <div class="success-modal" id="successModal" onclick="closeSuccessModal()">
+        <div class="success-card" onclick="event.stopPropagation()">
+            <div class="success-icon-wrapper">
+                <svg viewBox="0 0 24 24">
+                    <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                </svg>
+            </div>
+            <h2 class="success-title">تم استلام طلبك بنجاح!</h2>
+            <p class="success-sub">جاري تجهيز أفضل الأصناف لك بكل حب، شكراً لثقتك بـ مطعم وكافيه العاصمة.</p>
+        </div>
+    </div>
 
     <!-- لوحة التحكم -->
     <div class="admin-modal" id="adminModal" onclick="if(event.target==this) closeAdminPanel()">
@@ -365,20 +407,6 @@
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-
-    <!-- شريط تثبيت التطبيق -->
-    <div id="install-bar">
-        <span class="install-text">📱 ثبت ابلكيشن العاصمة الآن</span>
-        <button class="install-btn" onclick="triggerInstall()">تثبيت</button>
-    </div>
-
-    <div id="iosPopup" class="ios-popup" onclick="if(event.target==this) this.style.display='none'">
-        <div class="ios-content">
-            <h3>تثبيت تطبيق العاصمة للأيفون</h3>
-            <p>اضغط على زر المشاركة السفلي في متصفح Safari، ثم اختر <b>"إضافة إلى الشاشة الرئيسية ➕"</b>.</p>
-            <button class="ios-close" onclick="document.getElementById('iosPopup').style.display='none'">حسناً</button>
         </div>
     </div>
 
@@ -435,7 +463,7 @@
         import { getFirestore, doc, getDoc, setDoc, updateDoc, collection, onSnapshot, addDoc, deleteDoc, getDocs } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
         const firebaseConfig = {
-            apiKey: "AIzaSyDYwPVwpsvPcEaJGKp9Eia5...",
+            apiKey: window.env?.FIREBASE_API_KEY || "AIzaSyDYwPVwpsvPcEaJGKp9Eia5...",
             authDomain: "hayahkitchen-7bb13.firebaseapp.com",
             projectId: "hayahkitchen-7bb13",
             storageBucket: "hayahkitchen-7bb13.firebasestorage.app",
@@ -457,7 +485,6 @@
         const IMAGES_PATH = "./images/"; 
         let menuData = [], cart = [];
         let currentTotal = 0; 
-        let deferredPrompt;
         let selectedOrderType = 'delivery';
         let itemStatusMap = {}; 
         let orderLogsList = [];
@@ -493,7 +520,7 @@
             const counterEl = document.getElementById('loadPercentage');
             const barFill = document.getElementById('progressBarFill');
             let count = 0;
-            const duration = 3800;
+            const duration = 2500;
             const intervalTime = duration / 100;
 
             const timer = setInterval(() => {
@@ -505,6 +532,17 @@
                     clearInterval(timer);
                 }
             }, intervalTime);
+        }
+
+        function parseCSVLine(text) {
+            const regex = /(?:,|\r?\n|^)(?:"([^"]*(?:""[^"]*)*)"|([^,\r\n]*))/gi;
+            const result = [];
+            let matches = null;
+            while ((matches = regex.exec(text))) {
+                let match = matches[1] ? matches[1].replace(/""/g, '"') : matches[2];
+                if (match !== undefined) result.push(match.trim());
+            }
+            return result;
         }
 
         window.addEventListener('firebase-ready', async () => {
@@ -596,11 +634,12 @@
 
                 const response = await fetch(finalUrl);
                 const data = await response.text();
-                const rows = data.split('\n').slice(1);
+                const lines = data.split(/\r?\n/).filter(line => line.trim() !== '');
+                const rows = lines.slice(1);
                 
                 menuData = rows.map(row => {
-                    const col = row.split(',');
-                    const rawName = col[1]?.trim() || "";
+                    const col = parseCSVLine(row);
+                    const rawName = col[1] || "";
                     
                     let imgFileName = rawName;
                     const match = rawName.match(/\(([^)]+)\)/);
@@ -609,10 +648,10 @@
                     }
 
                     return { 
-                        category: col[0]?.trim(), 
+                        category: col[0] || "", 
                         name: rawName, 
-                        desc: col[2]?.trim() || "", 
-                        price: col[3]?.trim() || "", 
+                        desc: col[2] || "", 
+                        price: col[3] || "", 
                         img: `${IMAGES_PATH}${imgFileName}.jpg` 
                     };
                 }).filter(i => i.name);
@@ -623,12 +662,12 @@
                 setTimeout(() => {
                     document.getElementById('splash-screen').classList.add('splash-hidden');
                     initPWA(); 
-                }, 4000);
+                }, 2800);
 
             } catch (e) { 
                 setTimeout(() => {
                     document.getElementById('splash-screen').classList.add('splash-hidden');
-                }, 4000);
+                }, 2800);
             }
         }
 
@@ -636,7 +675,7 @@
             const uniqueCats = [...new Map(menuData.map(item => [item.category, item])).values()];
             document.getElementById('catNav').innerHTML = uniqueCats.map((cat, idx) => `
                 <div class="cat-item ${idx === 0 ? 'active' : ''}" onclick="filterCat('${cat.category}', this)">
-                    <div class="cat-img-box"><img src="${IMAGES_PATH}${cat.category}.jpg" onerror="this.src='${IMAGES_PATH}default.jpg'"></div>
+                    <div class="cat-img-box"><img src="${IMAGES_PATH}${cat.category}.jpg" alt="${cat.category}" onerror="this.src='${IMAGES_PATH}default.jpg'"></div>
                     <span>${cat.category}</span>
                 </div>
             `).join('');
@@ -644,7 +683,11 @@
         }
 
         function filterCat(cat, el) {
-            if(el) { document.querySelectorAll('.cat-item').forEach(b => b.classList.remove('active')); el.classList.add('active'); }
+            if(el) { 
+                document.querySelectorAll('.cat-item').forEach(b => b.classList.remove('active')); 
+                el.classList.add('active'); 
+                el.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+            }
             
             const isOfferCategory = cat.includes('العروض') || cat.toLowerCase().includes('offer');
 
@@ -664,10 +707,14 @@
                 let disabledClass = isEnabled ? '' : 'disabled-item';
                 let btnText = isEnabled ? 'اطلب' : 'موقف حالياً';
 
+                const safeName = item.name.replace(/'/g, "\\'");
+                const safeImg = item.img.replace(/'/g, "\\'");
+                const safePrice = (isCustomPrice ? '0' : rawPrice).replace(/'/g, "\\'");
+
                 if (isOfferCategory) {
                     return `
                     <div class="food-card offer-card ${disabledClass}" data-category="${item.category}" data-price="${isCustomPrice ? '0' : rawPrice}">
-                        <div class="item-img-box"><img src="${item.img}" onerror="this.src='${IMAGES_PATH}default.jpg'"></div>
+                        <div class="item-img-box"><img src="${item.img}" alt="${item.name}" onerror="this.src='${IMAGES_PATH}default.jpg'"></div>
                         <div class="food-info">
                             <div style="display: flex; justify-content: space-between; align-items: flex-start; width: 100%; margin-bottom: 8px;">
                                 <span class="food-name">${item.name}</span>
@@ -675,14 +722,14 @@
                             </div>
                             ${item.desc ? `<p class="food-desc">${item.desc}</p>` : ''}
                             <div style="display: flex; justify-content: flex-end; width: 100%; margin-top: 10px;">
-                                <button class="order-btn" ${!isEnabled ? 'disabled' : ''} onclick="addToCart(event, this, '${item.name}', '${item.img}', '${isCustomPrice ? '0' : rawPrice}')">${btnText}</button>
+                                <button class="order-btn" ${!isEnabled ? 'disabled' : ''} onclick="addToCart(event, this, '${safeName}', '${safeImg}', '${safePrice}')">${btnText}</button>
                             </div>
                         </div>
                     </div>`;
                 } else {
                     return `
                     <div class="food-card ${disabledClass}" data-category="${item.category}" data-price="${isCustomPrice ? '0' : rawPrice}">
-                        <div class="item-img-box"><img src="${item.img}" onerror="this.src='${IMAGES_PATH}default.jpg'"></div>
+                        <div class="item-img-box"><img src="${item.img}" alt="${item.name}" onerror="this.src='${IMAGES_PATH}default.jpg'"></div>
                         <div class="food-info">
                             <div style="display: flex; justify-content: space-between; align-items: flex-start; width: 100%;">
                                 <span class="food-name">${item.name}</span>
@@ -690,7 +737,7 @@
                             </div>
                             ${item.desc ? `<p class="food-desc">${item.desc}</p>` : ''}
                             <div style="display: flex; justify-content: flex-end; width: 100%; margin-top: 6px;">
-                                <button class="order-btn" ${!isEnabled ? 'disabled' : ''} onclick="addToCart(event, this, '${item.name}', '${item.img}', '${isCustomPrice ? '0' : rawPrice}')">${btnText}</button>
+                                <button class="order-btn" ${!isEnabled ? 'disabled' : ''} onclick="addToCart(event, this, '${safeName}', '${safeImg}', '${safePrice}')">${btnText}</button>
                             </div>
                         </div>
                     </div>`;
@@ -717,7 +764,7 @@
             document.getElementById('cartItemsList').innerHTML = cart.map((item, idx) => {
                 currentTotal += item.price;
                 let priceText = item.price > 0 ? `${item.price} ج.م` : 'على حسب الطلب';
-                return `<div class="cart-item-card"><img src="${item.img}" class="cart-item-img" onerror="this.src='${IMAGES_PATH}default.jpg'"><div class="cart-item-info"><span class="cart-item-name">${item.name}</span><span class="cart-item-price">${priceText}</span></div><span class="remove-btn" onclick="removeFromCart(${idx})">حذف</span></div>`;
+                return `<div class="cart-item-card"><img src="${item.img}" class="cart-item-img" alt="${item.name}" onerror="this.src='${IMAGES_PATH}default.jpg'"><div class="cart-item-info"><span class="cart-item-name">${item.name}</span><span class="cart-item-price">${priceText}</span></div><span class="remove-btn" onclick="removeFromCart(${idx})">حذف</span></div>`;
             }).join('');
             document.getElementById('totalAmount').innerText = `${currentTotal} ج.م`;
         }
@@ -744,7 +791,9 @@
         }
 
         async function sendToWA() {
-            const n = document.getElementById('uName').value, p = document.getElementById('uPhone').value, a = document.getElementById('uAddr').value;
+            const n = document.getElementById('uName').value.trim();
+            const p = document.getElementById('uPhone').value.trim();
+            const a = document.getElementById('uAddr').value.trim();
             
             if (!n || !p || cart.length === 0) {
                 return alert("يرجى إكمال البيانات واختيار الأصناف");
@@ -760,10 +809,13 @@
                 return `${index + 1}. ${i.name} [${i.category}] - ${pTxt}`;
             }).join('\n');
 
+            const randomOrderId = Math.floor(1000 + Math.random() * 9000);
+
             try {
                 const { collection, addDoc } = window.firebaseModules;
                 const db = window.db;
                 await addDoc(collection(db, "orders_log"), {
+                    orderId: randomOrderId,
                     name: n,
                     phone: p,
                     type: typeLabel,
@@ -777,24 +829,20 @@
                 console.log("Error saving order:", err);
             }
 
-            let msg = `✨ *طلب جديد من مطعم وكافيه العاصمة* ✨\n\n`;
-            msg += `👤 *الاسم:* ${n}\n`;
-            msg += `📱 *الهاتف:* ${p}\n`;
-            msg += `🛵 *نوع الطلب:* ${typeLabel}\n`;
-            if (selectedOrderType === 'delivery') {
-                msg += `📍 *العنوان:* ${a}\n`;
-            }
-            msg += `\n*الطلبات:* \n`;
-            msg += `-------------------------\n`;
-            msg += orderDetailsStr + `\n`;
-            msg += `-------------------------\n\n`;
-            msg += `💰 *الإجمالي النهائي:* *${currentTotal} ج.م*\n\n`;
-            msg += `نأمل أن تنال خدمتنا رضاكم دائماً. ✨`;
-
-            window.open(`https://wa.me/201211770672?text=${encodeURIComponent(msg)}`);
+            toggleCart(false);
+            
             cart = [];
             updateCart();
-            toggleCart(false);
+
+            // إظهار نافذة النجاح وإغلاقها تلقائياً بعد 4 ثوانٍ أو بالنقر خارجها
+            document.getElementById('successModal').style.display = 'flex';
+            setTimeout(() => {
+                closeSuccessModal();
+            }, 4000);
+        }
+
+        function closeSuccessModal() {
+            document.getElementById('successModal').style.display = 'none';
         }
 
         function openAdminPanel() {
@@ -869,11 +917,12 @@
 
             container.innerHTML = menuData.map(item => {
                 let isEnabled = itemStatusMap[item.name] !== false;
+                const safeName = item.name.replace(/'/g, "\\'");
                 return `
                     <div class="switch-row">
                         <span class="switch-label">${item.name} <small style="color:var(--desc-text)">(${item.category})</small></span>
                         <label class="switch">
-                            <input type="checkbox" ${isEnabled ? 'checked' : ''} onchange="toggleItemStatus('${item.name}', this.checked)">
+                            <input type="checkbox" ${isEnabled ? 'checked' : ''} onchange="toggleItemStatus('${safeName}', this.checked)">
                             <span class="slider"></span>
                         </label>
                     </div>
@@ -921,6 +970,10 @@
                     </div>
                     
                     <div class="order-info-group">
+                        <div class="order-info-row">
+                            <span class="order-info-label">رقم الطلب:</span>
+                            <span class="order-info-value">#${order.orderId || '---'}</span>
+                        </div>
                         <div class="order-info-row">
                             <span class="order-info-label">الاسم:</span>
                             <span class="order-info-value">${order.name}</span>
@@ -1017,41 +1070,7 @@
                     });
                 }).catch(err => console.log('SW registration failed:', err));
             }
-
-            const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
-
-            if (!isStandalone) {
-                document.getElementById('install-bar').style.display = 'flex';
-            }
         }
-
-        window.addEventListener('beforeinstallprompt', (e) => {
-            e.preventDefault();
-            deferredPrompt = e;
-            document.getElementById('install-bar').style.display = 'flex';
-        });
-
-        function triggerInstall() {
-            const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
-            
-            if (isIOS) {
-                document.getElementById('iosPopup').style.display = 'flex';
-            } else if (deferredPrompt) {
-                deferredPrompt.prompt();
-                deferredPrompt.userChoice.then((choiceResult) => {
-                    if (choiceResult.outcome === 'accepted') {
-                        document.getElementById('install-bar').style.display = 'none';
-                    }
-                    deferredPrompt = null;
-                });
-            } else {
-                alert("للتثبيت، يرجى الضغط على قائمة المتصفح ثم اختيار 'إضافة إلى الشاشة الرئيسية'.");
-            }
-        }
-
-        window.addEventListener('appinstalled', () => {
-            document.getElementById('install-bar').style.display = 'none';
-        });
     </script>
 </body>
 </html>
