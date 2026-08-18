@@ -417,7 +417,7 @@
             direction: rtl;
         }
 
-        /* --- تنسيق صف الصنف ومفتاح التشغيل (Switch) المعدل بالكامل --- */
+        /* --- تنسيق صف الصنف ومفتاح التشغيل (Switch) --- */
         .switch-row { 
             display: flex; 
             justify-content: space-between; 
@@ -447,7 +447,6 @@
             margin-top: 2px;
         }
         
-        /* حاوية السويتش - اتجاه LTR ثابت لمنع تداخل حركة الـ CSS في RTL */
         .switch { 
             position: relative; 
             display: inline-block; 
@@ -1087,7 +1086,8 @@
     </script>
 
     <script>
-        const csvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQrC1hw6FzXbBcHD9MjbJ2Gtnq2xaRBG9tnlowxZxWwkNiqfUi20OjQvpfNGZAO-nu5TR2u9x3sngSG/pub?output=csv';
+        // رابط الشيت الجديد
+        const csvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTlrGKwwxvvsxLOMHbYAk5LZ-iqR0Hj6r3g4j0tCjBnHkKy1Y936jss8F_YsjoksqLSe6WeAjnoXR3g/pub?output=csv';
         const IMAGES_PATH = "./images/"; 
         let menuData = [], cart = [];
         let currentTotal = 0; 
@@ -1237,10 +1237,11 @@
             startCreativeCounter();
 
             try {
-                const cacheBuster = `&t=${new Date().getTime()}`;
+                // منع التخزين المؤقت لضمان نزول التعديلات فوراً
+                const cacheBuster = `&t=${Date.now()}`;
                 const finalUrl = csvUrl + cacheBuster;
 
-                const response = await fetch(finalUrl);
+                const response = await fetch(finalUrl, { cache: 'no-store' });
                 const data = await response.text();
                 const lines = data.split(/\r?\n/).filter(line => line.trim() !== '');
                 const rows = lines.slice(1);
@@ -1507,7 +1508,6 @@
         async function verifyAdminPassword() {
             const inputPass = document.getElementById('adminPassInput').value.trim();
             
-            // التحقق المباشر من الرقم 123
             if (inputPass === "123") {
                 localStorage.setItem('is_restaurant_owner', 'true');
                 localStorage.setItem('admin_access_count', '1');
@@ -1590,7 +1590,7 @@
             }
         }
 
-        /* --- عرض سجل الطلبات المميز مع الشات الداخلي --- */
+        /* --- عرض سجل الطلبات --- */
         function renderAdminOrdersLogs() {
             const container = document.getElementById('adminOrdersLogsList');
             const summaryHeading = document.getElementById('ordersSummaryHeading');
@@ -1651,7 +1651,7 @@
             }).join('');
         }
 
-        /* --- وظائف الشات الداخلي الحي (Live In-App Chat) --- */
+        /* --- وظائف الشات الداخلي --- */
         function openInAppChat(orderDocId, clientName, orderNum) {
             currentActiveChatOrderId = orderDocId;
             document.getElementById('chatClientName').innerText = `محادثة: ${clientName}`;
