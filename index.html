@@ -417,7 +417,7 @@
             direction: rtl;
         }
 
-        /* --- تنسيق صف الصنف ومفتاح التشغيل (Switch) --- */
+        /* --- تنسيق مفاتيح التحكم بالـ RTL --- */
         .switch-row { 
             display: flex; 
             justify-content: space-between; 
@@ -1086,7 +1086,6 @@
     </script>
 
     <script>
-        // رابط الشيت الجديد
         const csvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTlrGKwwxvvsxLOMHbYAk5LZ-iqR0Hj6r3g4j0tCjBnHkKy1Y936jss8F_YsjoksqLSe6WeAjnoXR3g/pub?output=csv';
         const IMAGES_PATH = "./images/"; 
         let menuData = [], cart = [];
@@ -1237,7 +1236,6 @@
             startCreativeCounter();
 
             try {
-                // منع التخزين المؤقت لضمان نزول التعديلات فوراً
                 const cacheBuster = `&t=${Date.now()}`;
                 const finalUrl = csvUrl + cacheBuster;
 
@@ -1248,7 +1246,16 @@
                 
                 menuData = rows.map(row => {
                     const col = parseCSVLine(row);
-                    const rawName = col[1] || "";
+                    
+                    // التوزيع الدقيق حسب أعمدة الشيت:
+                    // العمود A: القسم (col[0])
+                    // العمود B: الصنف (col[1])
+                    // العمود C: السعر (col[2])
+                    // العمود D: الوصف (col[3] إن وجد)
+                    const rawCat = (col[0] || "").trim();
+                    const rawName = (col[1] || "").trim();
+                    const rawPrice = (col[2] || "").trim();
+                    const rawDesc = (col[3] || "").trim();
                     
                     let imgFileName = rawName;
                     const match = rawName.match(/\(([^)]+)\)/);
@@ -1257,13 +1264,13 @@
                     }
 
                     return { 
-                        category: col[0] || "", 
+                        category: rawCat, 
                         name: rawName, 
-                        desc: col[2] || "", 
-                        price: col[3] || "", 
+                        desc: rawDesc, 
+                        price: rawPrice, 
                         img: `${IMAGES_PATH}${imgFileName}.jpg` 
                     };
-                }).filter(i => i.name);
+                }).filter(i => i.name && i.category);
                 
                 preloadImages(menuData);
                 renderNav();
