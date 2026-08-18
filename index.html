@@ -187,7 +187,7 @@
         
         .menu-list { padding: 15px; max-width: 600px; margin: auto; }
         
-        /* --- كروت المنتجات مع تباين ناعم وخفيف --- */
+        /* --- كروت المنتجات --- */
         .food-card { 
             background: var(--white); 
             border-radius: 20px; 
@@ -272,7 +272,7 @@
         .offer-card .food-info { padding: 18px; width: 100%; min-height: auto; }
         .offer-card .food-name { font-size: 1.15rem; font-weight: 800; color: var(--accent); }
 
-        /* --- زر اطلب الآن وتأثير الأخضر الشفاف --- */
+        /* --- زر اطلب الآن --- */
         .order-btn { 
             background: var(--accent); 
             color: white; 
@@ -1343,12 +1343,16 @@
                         imgFileName = match[1].trim();
                     }
 
+                    // التحقق الدقيق من قسم البرجر أو اسم الصنف وتعيين الصورة لصورة القسم
+                    let isBurger = rawCat.includes('برجر') || rawCat.toLowerCase().includes('burger') || rawName.includes('برجر') || rawName.toLowerCase().includes('burger');
+                    let finalImg = isBurger ? `${IMAGES_PATH}برجر.jpg` : `${IMAGES_PATH}${imgFileName}.jpg`;
+
                     return { 
                         category: rawCat, 
                         name: rawName, 
                         desc: rawDesc, 
                         price: rawPrice, 
-                        img: `${IMAGES_PATH}${imgFileName}.jpg` 
+                        img: finalImg 
                     };
                 }).filter(i => i.name && i.category);
                 
@@ -1403,15 +1407,21 @@
                 let disabledClass = isEnabled ? '' : 'disabled-item';
                 let btnText = isEnabled ? 'اطلب الآن' : 'موقف حالياً';
 
+                // التأكد من صورة الصنف
+                let itemImage = item.img;
+                if (item.category.includes('برجر') || item.category.toLowerCase().includes('burger') || item.name.includes('برجر')) {
+                    itemImage = `${IMAGES_PATH}برجر.jpg`;
+                }
+
                 const safeName = item.name.replace(/'/g, "\\'");
-                const safeImg = item.img.replace(/'/g, "\\'");
+                const safeImg = itemImage.replace(/'/g, "\\'");
                 const safePrice = (isCustomPrice ? '0' : rawPrice).replace(/'/g, "\\'");
 
                 if (isOfferCategory) {
                     return `
                     <div class="food-card offer-card ${disabledClass}" data-category="${item.category}" data-price="${isCustomPrice ? '0' : rawPrice}">
                         <div class="item-img-box">
-                            <img src="${item.img}" alt="${item.name}" onerror="this.src='${IMAGES_PATH}default.jpg'">
+                            <img src="${itemImage}" alt="${item.name}" onerror="this.src='${IMAGES_PATH}default.jpg'">
                         </div>
                         <div class="food-info">
                             <div class="food-card-top-row">
@@ -1428,7 +1438,7 @@
                     return `
                     <div class="food-card ${disabledClass}" data-category="${item.category}" data-price="${isCustomPrice ? '0' : rawPrice}">
                         <div class="item-img-box">
-                            <img src="${item.img}" alt="${item.name}" onerror="this.src='${IMAGES_PATH}default.jpg'">
+                            <img src="${itemImage}" alt="${item.name}" onerror="this.src='${IMAGES_PATH}default.jpg'">
                         </div>
                         <div class="food-info">
                             <div class="food-card-top-row">
