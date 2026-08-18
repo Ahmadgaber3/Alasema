@@ -183,26 +183,118 @@
         
         .menu-list { padding: 15px; max-width: 600px; margin: auto; }
         
-        .food-card { background: var(--white); border-radius: 20px; margin-bottom: 12px; display: flex; padding: 12px 16px; gap: 14px; align-items: center; box-shadow: 0 4px 12px rgba(0,0,0,0.04); border: 1px solid rgba(0,0,0,0.04); contain: content; }
+        /* --- كروت المنتجات وتعديل السعر أعلى اليسار بلون أسود --- */
+        .food-card { 
+            background: var(--white); 
+            border-radius: 20px; 
+            margin-bottom: 12px; 
+            display: flex; 
+            padding: 14px; 
+            gap: 14px; 
+            align-items: center; 
+            box-shadow: 0 4px 12px rgba(0,0,0,0.04); 
+            border: 1px solid rgba(0,0,0,0.04); 
+            contain: content; 
+        }
         .food-card.disabled-item { opacity: 0.5; filter: grayscale(0.3); }
         
-        .item-img-box { width: 105px; height: 105px; border-radius: 16px; overflow: hidden; background: #dcdfe3; flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
+        .item-img-box { 
+            width: 105px; 
+            height: 105px; 
+            border-radius: 16px; 
+            overflow: hidden; 
+            background: #dcdfe3; 
+            flex-shrink: 0; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+        }
         .item-img-box img { width: 100%; height: 100%; object-fit: cover; }
         
-        .food-info { flex: 1; position: relative; display: flex; flex-direction: column; justify-content: center; min-height: 95px; }
-        .food-name { font-weight: 700; font-size: 0.95rem; color: var(--main-text); padding-left: 10px; }
-        .food-desc { font-size: 0.78rem; color: var(--desc-text); line-height: 1.3; margin-top: 2px; margin-bottom: 6px; }
-        .food-price { font-weight: 800; color: var(--yellow-gold); font-size: 0.95rem; white-space: nowrap; display: inline-block; }
+        .food-info { 
+            flex: 1; 
+            position: relative; 
+            display: flex; 
+            flex-direction: column; 
+            justify-content: space-between; 
+            min-height: 95px; 
+        }
+
+        .food-card-top-row {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 8px;
+            width: 100%;
+        }
+
+        .food-name { 
+            font-weight: 800; 
+            font-size: 1rem; 
+            color: var(--main-text); 
+            flex: 1;
+        }
+
+        /* السعر أعلى اليسار بلون أسود وحجم أكبر */
+        .top-left-price {
+            font-weight: 900;
+            color: #000000;
+            font-size: 1.15rem;
+            white-space: nowrap;
+            letter-spacing: -0.2px;
+        }
+
+        body.dark-mode .top-left-price {
+            color: #ffffff;
+        }
+
+        .food-desc { 
+            font-size: 0.78rem; 
+            color: var(--desc-text); 
+            line-height: 1.35; 
+            margin-top: 3px; 
+            margin-bottom: 6px;
+        }
         
+        .food-card-bottom-row {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            margin-top: 4px;
+        }
+
         .food-card.offer-card { display: flex; flex-direction: column; padding: 0; overflow: hidden; align-items: stretch; border-radius: 24px; margin-bottom: 16px; }
         .offer-card .item-img-box { width: 100%; height: 260px; border-radius: 0; background: rgba(0,0,0,0.02); }
         .offer-card .item-img-box img { width: 100%; height: 100%; object-fit: contain; }
-        .offer-card .food-info { padding: 20px; width: 100%; min-height: auto; }
-        .offer-card .food-name { font-size: 1.1rem; padding-left: 0; font-weight: 800; color: var(--accent); }
+        .offer-card .food-info { padding: 18px; width: 100%; min-height: auto; }
+        .offer-card .food-name { font-size: 1.15rem; font-weight: 800; color: var(--accent); }
 
-        .order-btn { background: var(--accent); color: white; border: none; padding: 7px 16px; border-radius: 14px; font-size: 0.82rem; font-weight: 800; cursor: pointer; }
-        .order-btn:disabled { background: #95a5a6 !important; cursor: not-allowed; }
-        .order-btn.added { background: var(--success-dark); color: white; }
+        /* --- زر اطلب الآن وتأثير الأخضر الشفاف --- */
+        .order-btn { 
+            background: var(--accent); 
+            color: white; 
+            border: 1.5px solid var(--accent); 
+            padding: 7px 18px; 
+            border-radius: 14px; 
+            font-size: 0.82rem; 
+            font-weight: 800; 
+            cursor: pointer; 
+            transition: all 0.25s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+        }
+        .order-btn:active { transform: scale(0.95); }
+        .order-btn:disabled { background: #95a5a6 !important; border-color: #95a5a6 !important; cursor: not-allowed; }
+        
+        .order-btn.added { 
+            background: rgba(39, 174, 96, 0.22) !important; 
+            color: var(--success-dark) !important; 
+            border-color: var(--success-dark) !important;
+            backdrop-filter: blur(5px);
+        }
+
         .fly-item { position: fixed; z-index: 9999; pointer-events: none; width: 30px; height: 30px; background: var(--accent); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 15px; transition: transform 0.5s cubic-bezier(0.19, 1, 0.22, 1), opacity 0.5s ease; will-change: transform, opacity; }
 
         .restaurant-footer { padding: 30px 20px; text-align: center; background: var(--white); border-top: 1px solid rgba(0,0,0,0.04); margin-top: 20px; }
@@ -224,7 +316,7 @@
         .cart-item-img { width: 50px; height: 50px; border-radius: 12px; object-fit: cover; }
         .cart-item-info { flex: 1; }
         .cart-item-name { font-weight: 700; font-size: 0.9rem; color: var(--main-text); }
-        .cart-item-price { color: var(--yellow-gold); font-weight: 800; font-size: 0.85rem; display: block; }
+        .cart-item-price { color: #000000; font-weight: 800; font-size: 0.9rem; display: block; }
         .remove-btn { color: #ff3b30; font-weight: 800; font-size: 0.75rem; cursor: pointer; }
 
         .order-type-container { display: flex; background: #f1f2f6; padding: 6px; border-radius: 16px; margin: 15px 0; gap: 6px; }
@@ -417,7 +509,6 @@
             direction: rtl;
         }
 
-        /* --- تنسيق مفاتيح التحكم بالـ RTL --- */
         .switch-row { 
             display: flex; 
             justify-content: space-between; 
@@ -636,10 +727,14 @@
         .order-total-price-wrap {
             font-size: 1.15rem;
             font-weight: 900;
-            color: #c0392b;
+            color: #000000;
             display: flex;
             align-items: center;
             gap: 6px;
+        }
+
+        body.dark-mode .order-total-price-wrap {
+            color: #ffffff;
         }
 
         .order-chat-btn {
@@ -1041,7 +1136,7 @@
             <div id="cartItemsList"></div>
             <div style="margin: 20px 0; padding: 15px; background: rgba(184, 134, 11, 0.08); border-radius: 18px; display: flex; justify-content: space-between;">
                 <b>المجموع</b>
-                <b id="totalAmount">0 ج.م</b>
+                <b id="totalAmount">0 شيكل</b>
             </div>
 
             <div class="order-type-container">
@@ -1246,12 +1341,6 @@
                 
                 menuData = rows.map(row => {
                     const col = parseCSVLine(row);
-                    
-                    // التوزيع الدقيق حسب أعمدة الشيت:
-                    // العمود A: القسم (col[0])
-                    // العمود B: الصنف (col[1])
-                    // العمود C: السعر (col[2])
-                    // العمود D: الوصف (col[3] إن وجد)
                     const rawCat = (col[0] || "").trim();
                     const rawName = (col[1] || "").trim();
                     const rawPrice = (col[2] || "").trim();
@@ -1313,15 +1402,15 @@
                 let isCustomPrice = false;
 
                 if (!rawPrice || rawPrice === "" || rawPrice.includes('حسب الطلب')) {
-                    displayPrice = 'على حسب الطلب';
+                    displayPrice = 'حسب الطلب';
                     isCustomPrice = true;
-                } else if (!rawPrice.includes('ج.م')) {
-                    displayPrice = rawPrice + ' ج.م';
+                } else if (!rawPrice.includes('شيكل')) {
+                    displayPrice = rawPrice + ' شيكل';
                 }
 
                 let isEnabled = itemStatusMap[item.name] !== false;
                 let disabledClass = isEnabled ? '' : 'disabled-item';
-                let btnText = isEnabled ? 'اطلب' : 'موقف حالياً';
+                let btnText = isEnabled ? 'اطلب الآن' : 'موقف حالياً';
 
                 const safeName = item.name.replace(/'/g, "\\'");
                 const safeImg = item.img.replace(/'/g, "\\'");
@@ -1330,14 +1419,16 @@
                 if (isOfferCategory) {
                     return `
                     <div class="food-card offer-card ${disabledClass}" data-category="${item.category}" data-price="${isCustomPrice ? '0' : rawPrice}">
-                        <div class="item-img-box"><img src="${item.img}" alt="${item.name}" onerror="this.src='${IMAGES_PATH}default.jpg'"></div>
+                        <div class="item-img-box">
+                            <img src="${item.img}" alt="${item.name}" onerror="this.src='${IMAGES_PATH}default.jpg'">
+                        </div>
                         <div class="food-info">
-                            <div style="display: flex; justify-content: space-between; align-items: flex-start; width: 100%; margin-bottom: 8px;">
-                                <span class="food-name">${item.name}</span>
-                                <span class="food-price">${displayPrice}</span>
+                            <div class="food-card-top-row">
+                                <div class="food-name">${item.name}</div>
+                                <span class="top-left-price">${displayPrice}</span>
                             </div>
                             ${item.desc ? `<p class="food-desc">${item.desc}</p>` : ''}
-                            <div style="display: flex; justify-content: flex-end; width: 100%; margin-top: 10px;">
+                            <div class="food-card-bottom-row">
                                 <button class="order-btn" ${!isEnabled ? 'disabled' : ''} onclick="addToCart(event, this, '${safeName}', '${safeImg}', '${safePrice}')">${btnText}</button>
                             </div>
                         </div>
@@ -1345,14 +1436,16 @@
                 } else {
                     return `
                     <div class="food-card ${disabledClass}" data-category="${item.category}" data-price="${isCustomPrice ? '0' : rawPrice}">
-                        <div class="item-img-box"><img src="${item.img}" alt="${item.name}" onerror="this.src='${IMAGES_PATH}default.jpg'"></div>
+                        <div class="item-img-box">
+                            <img src="${item.img}" alt="${item.name}" onerror="this.src='${IMAGES_PATH}default.jpg'">
+                        </div>
                         <div class="food-info">
-                            <div style="display: flex; justify-content: space-between; align-items: flex-start; width: 100%;">
-                                <span class="food-name">${item.name}</span>
-                                <span class="food-price">${displayPrice}</span>
+                            <div class="food-card-top-row">
+                                <div class="food-name">${item.name}</div>
+                                <span class="top-left-price">${displayPrice}</span>
                             </div>
                             ${item.desc ? `<p class="food-desc">${item.desc}</p>` : ''}
-                            <div style="display: flex; justify-content: flex-end; width: 100%; margin-top: 6px;">
+                            <div class="food-card-bottom-row">
                                 <button class="order-btn" ${!isEnabled ? 'disabled' : ''} onclick="addToCart(event, this, '${safeName}', '${safeImg}', '${safePrice}')">${btnText}</button>
                             </div>
                         </div>
@@ -1362,19 +1455,35 @@
         }
 
         function addToCart(e, btn, name, img, price) {
-            const card = btn.closest('.food-card'); const category = card.dataset.category || '';
+            const card = btn.closest('.food-card'); 
+            const category = card.dataset.category || '';
             let numericPrice = parseFloat(price) || 0;
             
             cart.push({name: name, price: numericPrice, displayPrice: price, img: img, category: category});
-            btn.innerText = 'تم الطلب'; btn.classList.add('added');
-            setTimeout(() => { btn.innerText = 'اطلب'; btn.classList.remove('added'); }, 1500);
             
-            const fly = document.createElement('div'); fly.className = 'fly-item'; fly.innerHTML = '🍲'; fly.style.left = e.clientX + 'px'; fly.style.top = e.clientY + 'px'; document.body.appendChild(fly);
-            const cartBtn = document.getElementById('cartBtn'); const cartPos = cartBtn.getBoundingClientRect();
+            btn.innerHTML = 'تم الطلب ✔'; 
+            btn.classList.add('added');
+            
+            setTimeout(() => { 
+                btn.innerHTML = 'اطلب الآن'; 
+                btn.classList.remove('added'); 
+            }, 1600);
+            
+            const fly = document.createElement('div'); 
+            fly.className = 'fly-item'; 
+            fly.innerHTML = '🍲'; 
+            fly.style.left = e.clientX + 'px'; 
+            fly.style.top = e.clientY + 'px'; 
+            document.body.appendChild(fly);
+
+            const cartBtn = document.getElementById('cartBtn'); 
+            const cartPos = cartBtn.getBoundingClientRect();
+            
             setTimeout(() => { 
                 fly.style.transform = `translate(${cartPos.left - e.clientX}px, ${cartPos.top - e.clientY}px) scale(0.2)`; 
                 fly.style.opacity = '0'; 
             }, 10);
+            
             setTimeout(() => { 
                 fly.remove(); 
                 updateCart(); 
@@ -1384,13 +1493,18 @@
         }
 
         function updateCart() {
-            const badge = document.getElementById('cartBadge'); badge.innerText = cart.length; badge.classList.toggle('show', cart.length > 0); currentTotal = 0;
+            const badge = document.getElementById('cartBadge'); 
+            badge.innerText = cart.length; 
+            badge.classList.toggle('show', cart.length > 0); 
+            currentTotal = 0;
+            
             document.getElementById('cartItemsList').innerHTML = cart.map((item, idx) => {
                 currentTotal += item.price;
-                let priceText = item.price > 0 ? `${item.price} ج.م` : 'على حسب الطلب';
+                let priceText = item.price > 0 ? `${item.price} شيكل` : 'حسب الطلب';
                 return `<div class="cart-item-card"><img src="${item.img}" class="cart-item-img" alt="${item.name}" onerror="this.src='${IMAGES_PATH}default.jpg'"><div class="cart-item-info"><span class="cart-item-name">${item.name}</span><span class="cart-item-price">${priceText}</span></div><span class="remove-btn" onclick="removeFromCart(${idx})">حذف</span></div>`;
             }).join('');
-            document.getElementById('totalAmount').innerText = `${currentTotal} ج.م`;
+            
+            document.getElementById('totalAmount').innerText = `${currentTotal} شيكل`;
         }
 
         function removeFromCart(idx) { cart.splice(idx, 1); updateCart(); if(cart.length === 0) toggleCart(false); }
@@ -1429,7 +1543,7 @@
             const typeLabel = selectedOrderType === 'delivery' ? 'دليفري' : 'تيك اواي';
             
             let orderDetailsStr = cart.map((i, index) => {
-                let pTxt = i.price > 0 ? `(${i.price} ج.م)` : '(على حسب الطلب)';
+                let pTxt = i.price > 0 ? `(${i.price} شيكل)` : '(حسب الطلب)';
                 return `${index + 1}. ${i.name} [${i.category}] - ${pTxt}`;
             }).join('\n');
 
@@ -1649,7 +1763,7 @@
                             <span style="font-size: 1rem;">💬</span>
                         </button>
                         <div class="order-total-price-wrap">
-                            <span>الإجمالي: ${order.total} ج.م</span>
+                            <span>الإجمالي: ${order.total} شيكل</span>
                             <span style="font-size: 1.15rem;">💰</span>
                         </div>
                     </div>
@@ -1816,3 +1930,4 @@
     </script>
 </body>
 </html>
+
