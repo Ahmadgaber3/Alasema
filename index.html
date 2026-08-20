@@ -6,6 +6,7 @@
     <title>مطعم وكافيه العاصمة | المنيو الرسمي</title>
     
     <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#b8860b">
     
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
@@ -65,6 +66,65 @@
         body.dark-mode {
             background-image: url('images/app-bg.jpg');
         }
+
+        /* --- شريط تثبيت التطبيق أسفل الهيدر --- */
+        #pwaInstallBanner {
+            display: none;
+            background: linear-gradient(135deg, var(--accent) 0%, #7d5a04 100%);
+            color: #ffffff;
+            padding: 12px 18px;
+            margin: 12px 15px 4px 15px;
+            border-radius: 20px;
+            box-shadow: 0 8px 20px rgba(184, 134, 11, 0.3);
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            animation: slideDownBanner 0.4s ease-out;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        @keyframes slideDownBanner {
+            from { opacity: 0; transform: translateY(-12px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .pwa-banner-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.9rem;
+            font-weight: 800;
+        }
+
+        .pwa-install-btn {
+            background: #ffffff;
+            color: var(--accent);
+            border: none;
+            padding: 8px 20px;
+            border-radius: 14px;
+            font-size: 0.88rem;
+            font-weight: 900;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            white-space: nowrap;
+            transition: transform 0.2s ease;
+        }
+        .pwa-install-btn:active { transform: scale(0.93); }
+
+        /* نافذة إرشاد التثبيت لـ iOS / Safari */
+        .ios-prompt-modal {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.7); z-index: 99999; display: none;
+            justify-content: center; align-items: center; padding: 20px;
+        }
+        .ios-prompt-box {
+            background: var(--white); border-radius: 26px; padding: 26px 20px;
+            text-align: center; max-width: 350px; color: var(--main-text);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+        }
+        .ios-prompt-box h3 { font-size: 1.2rem; font-weight: 900; margin-bottom: 12px; color: var(--accent); }
+        .ios-prompt-box p { font-size: 0.92rem; font-weight: 700; line-height: 1.6; margin-bottom: 20px; }
+        .ios-close-btn { background: var(--accent); color: white; border: none; padding: 11px 26px; border-radius: 14px; font-weight: 800; cursor: pointer; font-size: 0.9rem; }
 
         /* --- شاشة الترحيب --- */
         #splash-screen {
@@ -148,7 +208,20 @@
         }
         .header-top { width: 100%; display: flex; align-items: center; justify-content: center; position: relative; margin-bottom: 10px; }
         
-        .header-logo-container { width: 95px; height: 95px; border-radius: 50%; background: transparent; padding: 0; box-shadow: 0 4px 15px rgba(0,0,0,0.08); overflow: hidden; display: flex; align-items: center; justify-content: center; border: 2.5px solid var(--accent); }
+        /* إزالة الإطار الدائري الأصفر من حول اللوجو */
+        .header-logo-container { 
+            width: 95px; 
+            height: 95px; 
+            border-radius: 50%; 
+            background: transparent; 
+            padding: 0; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08); 
+            overflow: hidden; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            border: none !important; 
+        }
         .header-logo { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
         
         .theme-toggle { position: absolute; right: 20px; top: 0; width: 44px; height: 44px; background: var(--bg); border-radius: 14px; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 1.2rem; border: none; color: var(--main-text); box-shadow: 0 2px 6px rgba(0,0,0,0.04); }
@@ -1392,9 +1465,30 @@
         <div class="category-nav" id="catNav"></div>
     </header>
 
+    <!-- شريط تثبيت التطبيق تحت الهيدر -->
+    <div id="pwaInstallBanner">
+        <div class="pwa-banner-info">
+            <span style="font-size: 1.4rem;">📱</span>
+            <span>تثبيت تطبيق العاصمة لتجربة أسرع وأسهل</span>
+        </div>
+        <button class="pwa-install-btn" id="pwaInstallBtn" onclick="triggerPWAInstall()">تثبيت الآن ⬇</button>
+    </div>
+
+    <!-- نافذة إرشاد التثبيت لآيفون (iOS) -->
+    <div class="ios-prompt-modal" id="iosPromptModal" onclick="if(event.target==this) closeIosPrompt()">
+        <div class="ios-prompt-box">
+            <div style="font-size: 2.8rem; margin-bottom: 10px;">📲</div>
+            <h3>تثبيت التطبيق على آيفون</h3>
+            <p>
+                اضغط على زر المشاركة <b style="font-size: 1.1rem; color: var(--accent);">⎋ (Share)</b> في أسفل المتصفح، ثم اختر <b style="color: var(--accent);">"إضافة إلى الشاشة الرئيسية" ➕ (Add to Home Screen)</b>.
+            </p>
+            <button class="ios-close-btn" onclick="closeIosPrompt()">حسناً، فهمت</button>
+        </div>
+    </div>
+
     <div id="menuList" class="menu-list"></div>
 
-    <!-- نافذة اختيار النكهات (ديناميكية للأصناف ذات النكهات) -->
+    <!-- نافذة اختيار النكهات -->
     <div class="flavor-modal" id="flavorModal" onclick="if(event.target==this) closeFlavorModal()">
         <div class="flavor-card" onclick="event.stopPropagation()">
             <div class="flavor-title">
@@ -1403,9 +1497,7 @@
             </div>
             <div class="flavor-sub">يرجى اختيار الطعم المفضل لك:</div>
             
-            <div class="flavor-options-grid" id="flavorOptionsContainer">
-                <!-- الأزرار تتولد ديناميكياً هنا حسب الصنف -->
-            </div>
+            <div class="flavor-options-grid" id="flavorOptionsContainer"></div>
 
             <button type="button" class="flavor-close-btn" onclick="closeFlavorModal()">إلغاء</button>
         </div>
@@ -1436,7 +1528,7 @@
                 </div>
             </div>
             
-            <!-- تسجيل الدخول بكلمة السر (مطلوبة دائماً) -->
+            <!-- تسجيل الدخول بكلمة السر -->
             <div id="adminAuthView">
                 <div class="pass-form">
                     <p style="margin-bottom: 12px; font-weight: 700; font-size: 0.9rem; text-align: center; color: var(--desc-text);">أدخل كلمة مرور الإدارة للمتابعة:</p>
@@ -1530,12 +1622,11 @@
                 </button>
             </div>
 
-            <!-- قائمة كروت الطلبات -->
             <div id="adminOrdersLogsList">لا توجد طلبات مسجلة حتى الآن.</div>
         </div>
     </div>
 
-    <!-- 3. نافذة الشات الداخلي المباشر للأوردر (Live In-App Chat) -->
+    <!-- 3. نافذة الشات الداخلي المباشر للأوردر -->
     <div class="chat-modal-ui" id="inAppChatModal" onclick="if(event.target==this) closeInAppChat()">
         <div class="chat-box-container" onclick="event.stopPropagation()">
             <div class="chat-header-bar">
@@ -1546,9 +1637,7 @@
                 <button class="chat-close-btn" onclick="closeInAppChat()">✕</button>
             </div>
             
-            <div class="chat-messages-area" id="chatMessagesContainer">
-                <!-- الرسائل المباشرة -->
-            </div>
+            <div class="chat-messages-area" id="chatMessagesContainer"></div>
 
             <div class="chat-input-row">
                 <input type="text" id="chatMsgInput" placeholder="اكتب رسالة للعميل..." onkeypress="if(event.key==='Enter') sendChatMessage()">
@@ -1680,6 +1769,7 @@
         let currentActiveChatOrderId = null;
         let unsubscribeChat = null;
         let currentFlavorItem = null;
+        let deferredPrompt = null;
 
         function toggleTheme() {
             document.body.classList.toggle('dark-mode');
@@ -1853,6 +1943,7 @@
             } catch (e) { 
                 setTimeout(() => {
                     document.getElementById('splash-screen').classList.add('splash-hidden');
+                    initPWA();
                 }, 4200);
             }
         }
@@ -1898,7 +1989,7 @@
                 let isEnabled = itemStatusMap[item.name] !== false;
                 let disabledClass = isEnabled ? '' : 'disabled-item';
 
-                // فحص الأصناف ذات النكهات
+                // فحص الأصناف لاختيار الطعم
                 const isMilkshake = item.name.includes('ميلك شيك') || item.name.includes('ميلكشيك') || item.name.toLowerCase().includes('milkshake');
                 const isYogurt = item.name.includes('زبادي') || item.name.toLowerCase().includes('yogurt');
                 const isCrepe = item.name.includes('كريب') || item.name.toLowerCase().includes('crepe');
@@ -2158,7 +2249,7 @@
 
         function addToCart(e, btn, name, img, price, isFromFlavor = false, customFlyIcon = '🍲') {
             const card = btn.closest('.food-card'); 
-            const category = card ? (card.dataset.category || '') : 'حلويات';
+            const category = card ? (card.dataset.category || '') : 'عام';
             let numericPrice = parseFloat(price) || 0;
             
             cart.push({name: name, price: numericPrice, displayPrice: price, img: img, category: category});
@@ -2236,7 +2327,7 @@
             const a = document.getElementById('uAddr').value.trim();
             
             if (!n || !p || cart.length === 0) {
-                return alert("يرجى إكمال البيانات وااختيار الأصناف");
+                return alert("يرجى إكمال البيانات واختيار الأصناف");
             }
             if (selectedOrderType === 'delivery' && !a) {
                 return alert("يرجى إدخال عنوان التوصيل بالتفصيل");
@@ -2443,7 +2534,7 @@
         }
 
         async function deleteSingleOrder(docId) {
-            if(!confirm("هل أنت تأكد من حذف هذا الطلب؟")) return;
+            if(!confirm("هل أنت متأكد من حذف هذا الطلب؟")) return;
             try {
                 const { doc, deleteDoc } = window.firebaseModules;
                 const db = window.db;
@@ -2545,11 +2636,62 @@
             }
         }
 
+        /* --- نظام التثبيت المباشر PWA لجميع الأجهزة --- */
         function initPWA() {
             if ('serviceWorker' in navigator) {
                 navigator.serviceWorker.register('./sw.js').catch(() => {});
             }
+
+            const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
+            if (isStandalone) {
+                return;
+            }
+
+            const isIOS = /iphone|ipad|ipod/.test(window.navigator.userAgent.toLowerCase());
+
+            if (isIOS) {
+                const banner = document.getElementById('pwaInstallBanner');
+                if (banner) banner.style.display = 'flex';
+            }
+
+            window.addEventListener('beforeinstallprompt', (e) => {
+                e.preventDefault();
+                deferredPrompt = e;
+                const banner = document.getElementById('pwaInstallBanner');
+                if (banner) banner.style.display = 'flex';
+            });
         }
+
+        function triggerPWAInstall() {
+            const isIOS = /iphone|ipad|ipod/.test(window.navigator.userAgent.toLowerCase());
+
+            if (isIOS) {
+                document.getElementById('iosPromptModal').style.display = 'flex';
+            } else if (deferredPrompt) {
+                deferredPrompt.prompt();
+                deferredPrompt.userChoice.then((choiceResult) => {
+                    if (choiceResult.outcome === 'accepted') {
+                        const banner = document.getElementById('pwaInstallBanner');
+                        if (banner) banner.style.display = 'none';
+                    }
+                    deferredPrompt = null;
+                });
+            } else {
+                alert("لتثبيت التطبيق: اضغط على خيارات المتصفح (⋮) ثم اختر 'تثبيت التطبيق' أو 'إضافة إلى الشاشة الرئيسية'.");
+            }
+        }
+
+        function closeIosPrompt() {
+            document.getElementById('iosPromptModal').style.display = 'none';
+            const banner = document.getElementById('pwaInstallBanner');
+            if (banner) banner.style.display = 'none';
+        }
+
+        window.addEventListener('appinstalled', () => {
+            const banner = document.getElementById('pwaInstallBanner');
+            if (banner) banner.style.display = 'none';
+            deferredPrompt = null;
+        });
     </script>
 </body>
 </html>
