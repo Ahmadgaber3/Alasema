@@ -1,4 +1,4 @@
-const CACHE_NAME = 'alasema-cache-v2';
+const CACHE_NAME = 'alasema-cache-v3';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',

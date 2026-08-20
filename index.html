@@ -67,7 +67,7 @@
             background-image: url('images/app-bg.jpg');
         }
 
-        /* --- شريط تثبيت التطبيق أسفل الهيدر --- */
+        /* شريط تثبيت التطبيق */
         #pwaInstallBanner {
             display: none;
             background: linear-gradient(135deg, var(--accent) 0%, #7d5a04 100%);
@@ -111,7 +111,6 @@
         }
         .pwa-install-btn:active { transform: scale(0.93); }
 
-        /* نافذة إرشاد التثبيت لـ iOS / Safari */
         .ios-prompt-modal {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0,0,0,0.7); z-index: 99999; display: none;
@@ -126,7 +125,7 @@
         .ios-prompt-box p { font-size: 0.92rem; font-weight: 700; line-height: 1.6; margin-bottom: 20px; }
         .ios-close-btn { background: var(--accent); color: white; border: none; padding: 11px 26px; border-radius: 14px; font-weight: 800; cursor: pointer; font-size: 0.9rem; }
 
-        /* --- شاشة الترحيب --- */
+        /* شاشة الترحيب */
         #splash-screen {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background-image: url('images/splash-bg.jpg');
@@ -199,7 +198,7 @@
         
         .splash-hidden { transform: translateY(-100%); opacity: 0; pointer-events: none; }
 
-        /* --- الهيدر --- */
+        /* الهيدر */
         header { 
             background: var(--header-bg); 
             position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.05);
@@ -208,7 +207,6 @@
         }
         .header-top { width: 100%; display: flex; align-items: center; justify-content: center; position: relative; margin-bottom: 10px; }
         
-        /* إزالة الإطار الدائري الأصفر من حول اللوجو */
         .header-logo-container { 
             width: 95px; 
             height: 95px; 
@@ -260,7 +258,7 @@
         
         .menu-list { padding: 15px; max-width: 600px; margin: auto; }
         
-        /* --- كروت المنتجات --- */
+        /* كروت المنتجات */
         .food-card { 
             background: var(--white); 
             border-radius: 20px; 
@@ -423,7 +421,7 @@
         .user-fields input { background: #f8f9fa; border: 1px solid #dfe4ea; padding: 16px; border-radius: 14px; width: 100%; margin-bottom: 10px; color: var(--main-text); text-align: right; }
         .submit-btn { background: var(--accent); color: white; border: none; padding: 18px; border-radius: 18px; width: 100%; font-weight: 800; cursor: pointer; }
 
-        /* --- تصميم شاشة اختيار الطعم --- */
+        /* اختيار الطعم */
         .flavor-modal {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0,0,0,0.6); z-index: 3500; display: none;
@@ -462,15 +460,15 @@
         .flavor-opt-btn.single-center { grid-column: span 2; }
         .flavor-close-btn { background: #e2e6ea; border: none; padding: 9px 24px; border-radius: 14px; font-weight: 800; color: #57606f; cursor: pointer; font-size: 0.85rem; }
 
-        /* --- تصميم شاشة نجاح الطلب --- */
-        .success-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.75); z-index: 5000; display: none; justify-content: center; align-items: center; padding: 20px; cursor: pointer; }
-        .success-card { background: var(--white); width: 100%; max-width: 380px; border-radius: 28px; padding: 35px 25px; text-align: center; box-shadow: 0 15px 35px rgba(0,0,0,0.25); display: flex; flex-direction: column; align-items: center; cursor: default; }
-        .success-icon-wrapper { width: 80px; height: 80px; background: rgba(39, 174, 96, 0.12); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 18px; border: 2px solid var(--success-dark); }
-        .success-icon-wrapper svg { width: 44px; height: 44px; fill: var(--success-dark); }
-        .success-title { font-size: 1.35rem; font-weight: 800; color: var(--main-text); margin-bottom: 10px; }
-        .success-sub { font-size: 0.95rem; color: var(--desc-text); font-weight: 600; line-height: 1.5; margin: 0; }
+        /* نجاح الطلب */
+        .success-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.75); z-index: 5000; display: none; justify-content: center; align-items: center; padding: 20px; }
+        .success-card { background: var(--white); width: 100%; max-width: 380px; border-radius: 28px; padding: 30px 22px; text-align: center; box-shadow: 0 15px 35px rgba(0,0,0,0.25); display: flex; flex-direction: column; align-items: center; cursor: default; }
+        .success-icon-wrapper { width: 75px; height: 75px; background: rgba(39, 174, 96, 0.12); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 15px; border: 2px solid var(--success-dark); }
+        .success-icon-wrapper svg { width: 40px; height: 40px; fill: var(--success-dark); }
+        .success-title { font-size: 1.25rem; font-weight: 800; color: var(--main-text); margin-bottom: 8px; }
+        .success-sub { font-size: 0.9rem; color: var(--desc-text); font-weight: 600; line-height: 1.5; margin-bottom: 18px; }
 
-        /* --- تصميم لوحة الإدارة --- */
+        /* لوحة التحكم */
         .admin-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.65); z-index: 4000; display: none; justify-content: center; align-items: center; padding: 15px; }
         .admin-box-ui { background: #ffffff; width: 100%; max-width: 390px; border-radius: 32px; padding: 24px 20px; box-shadow: 0 20px 50px rgba(0,0,0,0.2); border: 1px solid rgba(0,0,0,0.06); display: flex; flex-direction: column; direction: rtl; }
         .admin-header-ui { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
@@ -531,6 +529,7 @@
         .order-chat-btn { background: #27ae60; color: white; border: none; padding: 9px 18px; border-radius: 14px; font-size: 0.85rem; font-weight: 800; cursor: pointer; display: flex; align-items: center; gap: 6px; box-shadow: 0 4px 12px rgba(39, 174, 96, 0.25); }
         .order-chat-btn:active { transform: scale(0.95); }
 
+        /* نافذة الشات الداخلي */
         .chat-modal-ui { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 6000; display: none; justify-content: center; align-items: center; padding: 15px; }
         .chat-box-container { background: #ffffff; width: 100%; max-width: 420px; height: 82vh; border-radius: 28px; display: flex; flex-direction: column; overflow: hidden; box-shadow: 0 25px 60px rgba(0,0,0,0.4); direction: rtl; }
         .chat-header-bar { background: #2c3e50; color: white; padding: 14px 18px; display: flex; align-items: center; justify-content: space-between; }
@@ -583,7 +582,7 @@
         <div class="category-nav" id="catNav"></div>
     </header>
 
-    <!-- شريط تثبيت التطبيق تحت الهيدر -->
+    <!-- شريط تثبيت التطبيق -->
     <div id="pwaInstallBanner">
         <div class="pwa-banner-info">
             <span style="font-size: 1.4rem;">📱</span>
@@ -592,7 +591,7 @@
         <button class="pwa-install-btn" id="pwaInstallBtn" onclick="triggerPWAInstall()">تثبيت الآن ⬇</button>
     </div>
 
-    <!-- نافذة إرشاد التثبيت لآيفون (iOS) -->
+    <!-- نافذة إرشاد التثبيت لـ iOS -->
     <div class="ios-prompt-modal" id="iosPromptModal" onclick="if(event.target==this) closeIosPrompt()">
         <div class="ios-prompt-box">
             <div style="font-size: 2.8rem; margin-bottom: 10px;">📲</div>
@@ -606,7 +605,7 @@
 
     <div id="menuList" class="menu-list"></div>
 
-    <!-- نافذة اختيار النكهات (ديناميكية للأصناف ذات النكهات) -->
+    <!-- نافذة اختيار النكهات -->
     <div class="flavor-modal" id="flavorModal" onclick="if(event.target==this) closeFlavorModal()">
         <div class="flavor-card" onclick="event.stopPropagation()">
             <div class="flavor-title">
@@ -615,22 +614,24 @@
             </div>
             <div class="flavor-sub">يرجى اختيار الطعم المفضل لك:</div>
             
-            <div class="flavor-options-grid" id="flavorOptionsContainer">
-                <!-- الأزرار تتولد ديناميكياً هنا حسب الصنف -->
-            </div>
+            <div class="flavor-options-grid" id="flavorOptionsContainer"></div>
 
             <button type="button" class="flavor-close-btn" onclick="closeFlavorModal()">إلغاء</button>
         </div>
     </div>
 
     <!-- نافذة نجاح الطلب -->
-    <div class="success-modal" id="successModal" onclick="closeSuccessModal()">
-        <div class="success-card" onclick="event.stopPropagation()">
+    <div class="success-modal" id="successModal">
+        <div class="success-card">
             <div class="success-icon-wrapper">
                 <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
             </div>
             <h2 class="success-title">تم استلام طلبك بنجاح!</h2>
-            <p class="success-sub">جاري تجهيز أفضل الأصناف لك بكل حب، شكراً لثقتك بـ مطعم وكافيه العاصمة.</p>
+            <p class="success-sub">تم إرسال الطلب، ويمكنك متابعة الطلب أو محادثة المطعم مباشرة من هنا.</p>
+            <div style="display: flex; flex-direction: column; gap: 10px; width: 100%;">
+                <button id="successChatBtn" class="submit-btn" style="padding: 12px; font-size: 0.95rem;">💬 متابعة الطلب بالشات</button>
+                <button class="flavor-close-btn" onclick="closeSuccessModal()" style="padding: 12px;">إغلاق</button>
+            </div>
         </div>
     </div>
 
@@ -646,63 +647,54 @@
                 </div>
             </div>
             
-            <!-- تسجيل الدخول بكلمة السر (مطلوبة دائماً) -->
             <div id="adminAuthView">
                 <div class="pass-form">
-                    <p style="margin-bottom: 12px; font-weight: 700; font-size: 0.9rem; text-align: center; color: var(--desc-text);">أدخل كلمة مرور الإدارة للمتابعة:</p>
+                    <p style="margin-bottom: 12px; font-weight: 700; font-size: 0.9rem; text-align: center; color: var(--desc-text);">أدخل كلمة مرور الإدارة للمتابعة واعتماد جهاز الكاشير:</p>
                     <input type="password" id="adminPassInput" placeholder="كلمة المرور">
                     <button onclick="verifyAdminPassword()">دخول لوحة التحكم</button>
                 </div>
             </div>
 
-            <!-- عرض البطاقات الأربعة -->
             <div id="adminDashboardView" style="display: none;">
-                
                 <div class="branch-badge-bar">
-                    📍 الفرع الحالي: فرع العاصمة
+                    📍 الفرع: فرع العاصمة (جهاز كاشير معتمد 🔔)
                 </div>
 
                 <div class="admin-cards-grid">
-                    
-                    <!-- البطاقة 1: إدارة الأصناف -->
                     <div class="custom-admin-card" onclick="openSubModal('subModalItems')">
                         <div class="card-number-badge card-num-green">1</div>
                         <div class="card-img-circle bg-circle-orange">📦</div>
                         <h4 class="card-main-heading">إدارة الأصناف</h4>
-                        <p class="card-sub-description">تشغيل وإيقاف الوجبات ومزامنة الشيت</p>
+                        <p class="card-sub-description">تشغيل وإيقاف الوجبات</p>
                     </div>
 
-                    <!-- البطاقة 2: الطلبات الواردة -->
                     <div class="custom-admin-card" onclick="openSubModal('subModalOrders')">
                         <div class="card-number-badge card-num-gray">2</div>
                         <div class="card-img-circle bg-circle-blue">📜</div>
                         <h4 class="card-main-heading">الطلبات الواردة</h4>
-                        <p class="card-sub-description">عرض طلبات الفرع والتحديث المباشر</p>
+                        <p class="card-sub-description">عرض الطلبات والشات المباشر</p>
                     </div>
 
-                    <!-- البطاقة 3: تغيير كلمة المرور -->
                     <div class="custom-admin-card" onclick="openSubModal('subModalSettings')">
                         <div class="card-number-badge card-num-gray">3</div>
                         <div class="card-img-circle bg-circle-green">👨‍💼</div>
                         <h4 class="card-main-heading">تغيير كلمة المرور</h4>
-                        <p class="card-sub-description">حماية اللوحة وتغيير كلمة السر الخاصة بالإدارة</p>
+                        <p class="card-sub-description">حماية وتغيير كلمة السر</p>
                     </div>
 
-                    <!-- البطاقة 4: الدعم والمساعدة -->
                     <div class="custom-admin-card" onclick="openSubModal('subModalSupport')">
                         <div class="card-number-badge card-num-gray">4</div>
                         <div class="card-img-circle bg-circle-purple">👨‍💻</div>
                         <h4 class="card-main-heading">الدعم والمساعدة</h4>
-                        <p class="card-sub-description">تواصل مباشر مع الدعم الفني للمساعدة عبر الواتساب</p>
+                        <p class="card-sub-description">تواصل مباشر عبر الواتساب</p>
                     </div>
-
                 </div>
             </div>
 
         </div>
     </div>
 
-    <!-- 1. النافذة الطافية: إدارة الأصناف -->
+    <!-- 1. نافذة إدارة الأصناف -->
     <div class="admin-sub-modal" id="subModalItems" onclick="if(event.target==this) closeSubModal('subModalItems')">
         <div class="admin-sub-box">
             <div class="admin-header-ui" style="border-bottom: 1px solid #eee; padding-bottom: 10px;">
@@ -720,10 +712,9 @@
         </div>
     </div>
 
-    <!-- 2. النافذة الطافية: الطلبات الواردة -->
+    <!-- 2. نافذة الطلبات الواردة -->
     <div class="admin-sub-modal" id="subModalOrders" onclick="if(event.target==this) closeSubModal('subModalOrders')">
         <div class="admin-sub-box">
-            
             <div class="admin-header-ui" style="border-bottom: 1px solid #eee; padding-bottom: 10px;">
                 <button class="admin-close-btn" onclick="closeSubModal('subModalOrders')">✕</button>
                 <div class="admin-title-wrap" style="font-size: 1.2rem;">
@@ -740,34 +731,31 @@
                 </button>
             </div>
 
-            <!-- قائمة كروت الطلبات -->
             <div id="adminOrdersLogsList">لا توجد طلبات مسجلة حتى الآن.</div>
         </div>
     </div>
 
-    <!-- 3. نافذة الشات الداخلي المباشر للأوردر (Live In-App Chat) -->
+    <!-- 3. نافذة الشات الداخلي المباشر -->
     <div class="chat-modal-ui" id="inAppChatModal" onclick="if(event.target==this) closeInAppChat()">
         <div class="chat-box-container" onclick="event.stopPropagation()">
             <div class="chat-header-bar">
                 <div class="chat-header-info">
-                    <span class="chat-header-title" id="chatClientName">محادثة العميل</span>
+                    <span class="chat-header-title" id="chatClientName">محادثة</span>
                     <span class="chat-header-sub" id="chatOrderSubtitle">طلب رقم #---</span>
                 </div>
                 <button class="chat-close-btn" onclick="closeInAppChat()">✕</button>
             </div>
             
-            <div class="chat-messages-area" id="chatMessagesContainer">
-                <!-- الرسائل المباشرة -->
-            </div>
+            <div class="chat-messages-area" id="chatMessagesContainer"></div>
 
             <div class="chat-input-row">
-                <input type="text" id="chatMsgInput" placeholder="اكتب رسالة للعميل..." onkeypress="if(event.key==='Enter') sendChatMessage()">
+                <input type="text" id="chatMsgInput" placeholder="اكتب رسالة..." onkeypress="if(event.key==='Enter') sendChatMessage()">
                 <button class="chat-send-btn" onclick="sendChatMessage()">➤</button>
             </div>
         </div>
     </div>
 
-    <!-- 4. النافذة الطافية: تغيير كلمة المرور -->
+    <!-- 4. نافذة تغيير كلمة المرور -->
     <div class="admin-sub-modal" id="subModalSettings" onclick="if(event.target==this) closeSubModal('subModalSettings')">
         <div class="admin-sub-box">
             <div class="admin-header-ui" style="border-bottom: 1px solid #eee; padding-bottom: 10px;">
@@ -787,7 +775,7 @@
         </div>
     </div>
 
-    <!-- 5. النافذة الطافية: الدعم والمساعدة -->
+    <!-- 5. نافذة الدعم الفني -->
     <div class="admin-sub-modal" id="subModalSupport" onclick="if(event.target==this) closeSubModal('subModalSupport')">
         <div class="admin-sub-box" style="text-align: center;">
             <div class="admin-header-ui" style="border-bottom: 1px solid #eee; padding-bottom: 10px;">
@@ -811,12 +799,10 @@
 
     <footer class="restaurant-footer">
         <div class="social-icons-box">
-            <!-- رابط فيسبوك المحدث -->
             <a href="https://www.facebook.com/share/1GgYZAc4GU/?mibextid=wwXIfr" target="_blank" class="social-btn-link fb-color" title="فيسبوك">
                 <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
             </a>
-            <!-- رابط ورقم واتساب المحدث -->
-            <a href="https://wa.me/972567022502" target="_blank" class="social-btn-link wa-color" title="واتساب">
+            <a href="https://wa.me/970594804807" target="_blank" class="social-btn-link wa-color" title="واتساب">
                 <svg viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.513 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.713-1.457L0 24zm6.59-4.846c1.6.95 3.188 1.449 4.825 1.451 5.436 0 9.86-4.37 9.864-9.799.002-2.63-1.023-5.101-2.885-6.963C16.528 2.022 14.056.996 11.43.996c-5.442 0-9.87 4.372-9.874 9.799-.001 1.742.483 3.442 1.398 4.914l-.995 3.637 3.737-.971zm10.873-6.53c-.293-.146-1.734-.852-2.001-.95-.267-.099-.463-.146-.659.146-.195.293-.759.95-.93 1.146-.171.195-.341.219-.634.073-.293-.146-1.239-.456-2.361-1.456-.872-.777-1.46-1.738-1.632-2.031-.171-.293-.018-.452.129-.597.132-.131.293-.341.44-.512.146-.171.195-.293.293-.488.098-.195.049-.366-.024-.512-.074-.146-.659-1.586-.902-2.17-.238-.574-.479-.496-.659-.506-.171-.008-.366-.01-.562-.01-.195 0-.513.073-.781.366-.269.293-1.025 1.001-1.025 2.441 0 1.439 1.049 2.83 1.196 3.025.146.195 2.064 3.15 5.003 4.415.699.301 1.244.482 1.67.618.703.223 1.344.192 1.85.117.564-.083 1.734-.707 1.978-1.39.244-.683.244-1.269.171-1.39-.073-.122-.269-.195-.562-.342z"/></svg>
             </a>
             <a href="https://www.instagram.com/asemarest?igsh=YnFpNTE2OThlZjJs" target="_blank" class="social-btn-link ig-color" title="انستجرام">
@@ -863,7 +849,6 @@
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
         import { getFirestore, doc, getDoc, setDoc, updateDoc, collection, onSnapshot, addDoc, deleteDoc, getDocs, query, orderBy } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
-        // بيانات مشروع Firebase الجديد
         const firebaseConfig = {
             apiKey: "AIzaSyAXuVEm28putcD1b9Vln2iBGGXoCqPXGds",
             authDomain: "alasema-app.firebaseapp.com",
@@ -886,15 +871,19 @@
     <script>
         const csvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTlrGKwwxvvsxLOMHbYAk5LZ-iqR0Hj6r3g4j0tCjBnHkKy1Y936jss8F_YsjoksqLSe6WeAjnoXR3g/pub?output=csv';
         const IMAGES_PATH = "./images/"; 
+        const WA_TARGET_NUMBER = "970594804807"; // الرقم المعتمد لاستلام الطلبات
+
         let menuData = [], cart = [];
         let currentTotal = 0; 
         let selectedOrderType = 'delivery';
         let itemStatusMap = {}; 
         let orderLogsList = [];
         let currentActiveChatOrderId = null;
+        let currentChatRole = 'admin';
         let unsubscribeChat = null;
         let currentFlavorItem = null;
         let deferredPrompt = null;
+        let clientLatestOrderId = null;
 
         function toggleTheme() {
             document.body.classList.toggle('dark-mode');
@@ -927,7 +916,7 @@
             const counterEl = document.getElementById('loadPercentage');
             const barFill = document.getElementById('progressBarFill');
             let count = 0;
-            const duration = 4000;
+            const duration = 3000;
             const intervalTime = duration / 100;
 
             const timer = setInterval(() => {
@@ -982,10 +971,11 @@
 
                 renderAdminOrdersLogs();
 
+                const isCashierDevice = localStorage.getItem('alasema_is_cashier') === 'true';
+
                 if (!isFirstLoad && snapshot.docChanges().some(change => change.type === 'added')) {
-                    const authView = document.getElementById('adminAuthView');
-                    if (authView && authView.style.display === 'none') {
-                        playHighPriorityOrderAlert();
+                    if (isCashierDevice) {
+                        playLoudCashierBell();
                     }
                 }
                 isFirstLoad = false;
@@ -994,27 +984,36 @@
             loadMenu();
         });
 
-        function playHighPriorityOrderAlert() {
+        /* --- نغمة جرس قوية وعالية للكاشير --- */
+        function playLoudCashierBell() {
             try {
                 const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
                 if (audioCtx.state === 'suspended') { audioCtx.resume(); }
-                
-                for (let round = 0; round < 3; round++) {
-                    let delayOffset = round * 0.45;
-                    [659.25, 783.99, 987.77, 1318.51].forEach((freq, index) => {
-                        const osc = audioCtx.createOscillator();
-                        const gain = audioCtx.createGain();
-                        osc.type = 'triangle';
-                        osc.frequency.setValueAtTime(freq, audioCtx.currentTime + delayOffset + (index * 0.09));
-                        gain.gain.setValueAtTime(0.6, audioCtx.currentTime + delayOffset + (index * 0.09));
-                        gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + delayOffset + (index * 0.09) + 0.3);
-                        osc.connect(gain);
-                        gain.connect(audioCtx.destination);
-                        osc.start(audioCtx.currentTime + delayOffset + (index * 0.09));
-                        osc.stop(audioCtx.currentTime + delayOffset + (index * 0.09) + 0.3);
-                    });
+
+                const playChime = (freq, startTime, duration) => {
+                    const osc = audioCtx.createOscillator();
+                    const gain = audioCtx.createGain();
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(freq, startTime);
+                    gain.gain.setValueAtTime(1.0, startTime);
+                    gain.gain.exponentialRampToValueAtTime(0.001, startTime + duration);
+                    osc.connect(gain);
+                    gain.connect(audioCtx.destination);
+                    osc.start(startTime);
+                    osc.stop(startTime + duration);
+                };
+
+                let now = audioCtx.currentTime;
+                for (let r = 0; r < 4; r++) {
+                    let base = now + (r * 0.45);
+                    playChime(1046.50, base, 0.25);        // C6
+                    playChime(1318.51, base + 0.08, 0.25); // E6
+                    playChime(1567.98, base + 0.16, 0.35); // G6
+                    playChime(2093.00, base + 0.24, 0.40); // C7
                 }
-            } catch (e) { console.log("Audio play error:", e); }
+            } catch (e) {
+                console.log("Audio play error:", e);
+            }
         }
 
         async function loadMenu() {
@@ -1060,13 +1059,13 @@
                 setTimeout(() => {
                     document.getElementById('splash-screen').classList.add('splash-hidden');
                     initPWA(); 
-                }, 4200);
+                }, 3200);
 
             } catch (e) { 
                 setTimeout(() => {
                     document.getElementById('splash-screen').classList.add('splash-hidden');
                     initPWA();
-                }, 4200);
+                }, 3200);
             }
         }
 
@@ -1111,7 +1110,6 @@
                 let isEnabled = itemStatusMap[item.name] !== false;
                 let disabledClass = isEnabled ? '' : 'disabled-item';
 
-                // فحص الأصناف لاختيار الطعم
                 const isMilkshake = item.name.includes('ميلك شيك') || item.name.includes('ميلكشيك') || item.name.toLowerCase().includes('milkshake');
                 const isYogurt = item.name.includes('زبادي') || item.name.toLowerCase().includes('yogurt');
                 const isCrepe = item.name.includes('كريب') || item.name.toLowerCase().includes('crepe');
@@ -1198,7 +1196,6 @@
             }).join('');
         }
 
-        /* --- نافذة اختيار النكهات --- */
         function openFlavorModal(e, btn, name, img, price) {
             currentFlavorItem = {
                 btn: btn,
@@ -1376,13 +1373,23 @@
             }
 
             const typeLabel = selectedOrderType === 'delivery' ? 'دليفري' : 'تيك اواي';
+            const randomOrderId = Math.floor(1000 + Math.random() * 9000);
             
             let orderDetailsStr = cart.map((i, index) => {
                 let pTxt = i.price > 0 ? `(${i.price} شيكل)` : '(حسب الطلب)';
                 return `${index + 1}. ${i.name} [${i.category}] - ${pTxt}`;
             }).join('\n');
 
-            const randomOrderId = Math.floor(1000 + Math.random() * 9000);
+            let waMsg = `*طلب جديد من مطعم وكافيه العاصمة* 🛎️\n` +
+                        `*رقم الطلب:* #${randomOrderId}\n` +
+                        `*الاسم:* ${n}\n` +
+                        `*الموبايل:* ${p}\n` +
+                        `*النوع:* ${typeLabel}\n` +
+                        (selectedOrderType === 'delivery' ? `*العنوان:* ${a}\n` : '') +
+                        `--------------------------\n` +
+                        `*الأصناف المطلوبة:*\n${orderDetailsStr}\n` +
+                        `--------------------------\n` +
+                        `*الإجمالي:* ${currentTotal} شيكل`;
 
             try {
                 const { collection, addDoc } = window.firebaseModules;
@@ -1400,6 +1407,8 @@
                     dateFormatted: new Date().toLocaleString('ar-EG')
                 });
 
+                clientLatestOrderId = newOrderRef.id;
+
                 await addDoc(collection(db, "orders_log", newOrderRef.id, "messages"), {
                     sender: "admin",
                     text: `أهلاً بك أستاذ ${n}، تم استلام طلبك رقم #${randomOrderId} بنجاح وجاري تحضيره!`,
@@ -1407,25 +1416,31 @@
                     timeFormatted: new Date().toLocaleTimeString('ar-EG', { hour: '2-digit', minute: '2-digit' })
                 });
 
+                document.getElementById('successChatBtn').onclick = () => {
+                    closeSuccessModal();
+                    openInAppChat(newOrderRef.id, n, randomOrderId, 'client');
+                };
+
             } catch (err) {
                 console.log("Error saving order:", err);
             }
+
+            // إرسال الطلب إلى رقم الواتساب المعتمد
+            const waUrl = `https://wa.me/${WA_TARGET_NUMBER}?text=${encodeURIComponent(waMsg)}`;
+            window.open(waUrl, '_blank');
 
             toggleCart(false);
             cart = [];
             updateCart();
 
             document.getElementById('successModal').style.display = 'flex';
-            setTimeout(() => {
-                closeSuccessModal();
-            }, 4000);
         }
 
         function closeSuccessModal() {
             document.getElementById('successModal').style.display = 'none';
         }
 
-        /* --- لوحة التحكم --- */
+        /* --- لوحة التحكم وإدارة الكاشير --- */
         function openAdminPanel() {
             document.getElementById('adminModal').style.display = 'flex';
             document.getElementById('adminPassInput').value = '';
@@ -1453,6 +1468,13 @@
             if(target) target.style.display = 'none';
         }
 
+        function authorizeCashierDevice() {
+            let count = parseInt(localStorage.getItem('alasema_login_attempts') || '0', 10) + 1;
+            localStorage.setItem('alasema_login_attempts', count);
+            // اعتماد الجهاز فور الدخول أو عند تكرار الدخول
+            localStorage.setItem('alasema_is_cashier', 'true');
+        }
+
         async function verifyAdminPassword() {
             const inputPass = document.getElementById('adminPassInput').value.trim();
             const savedLocalPass = localStorage.getItem('alasema_admin_pass') || "123";
@@ -1461,12 +1483,16 @@
                 return alert("يرجى كتابة كلمة المرور!");
             }
 
-            // فحص محلي فوري أولاً لتجنب التعليق
-            if (inputPass === savedLocalPass || inputPass === "123") {
+            const grantAccess = () => {
+                authorizeCashierDevice();
                 document.getElementById('adminPassInput').value = '';
                 document.getElementById('adminAuthView').style.display = 'none';
                 document.getElementById('adminDashboardView').style.display = 'block';
                 renderAdminItemsList();
+            };
+
+            if (inputPass === savedLocalPass || inputPass === "123") {
+                grantAccess();
                 return;
             }
 
@@ -1475,20 +1501,14 @@
                     const { doc, getDoc } = window.firebaseModules;
                     const passDoc = await getDoc(doc(window.db, "settings", "password"));
                     if (passDoc.exists() && inputPass === passDoc.data().value) {
-                        document.getElementById('adminPassInput').value = '';
-                        document.getElementById('adminAuthView').style.display = 'none';
-                        document.getElementById('adminDashboardView').style.display = 'block';
-                        renderAdminItemsList();
+                        grantAccess();
                         return;
                     }
                 }
                 alert("كلمة المرور غير صحيحة!");
             } catch (e) {
                 if (inputPass === savedLocalPass) {
-                    document.getElementById('adminPassInput').value = '';
-                    document.getElementById('adminAuthView').style.display = 'none';
-                    document.getElementById('adminDashboardView').style.display = 'block';
-                    renderAdminItemsList();
+                    grantAccess();
                 } else {
                     alert("كلمة المرور غير صحيحة!");
                 }
@@ -1607,7 +1627,7 @@
                             <span>المجموع:</span>
                             <span>${order.total || 0} شيكل</span>
                         </div>
-                        <button class="order-chat-btn" onclick="openInAppChat('${order.id}', '${order.name || 'العميل'}', '${order.orderId || ''}')">
+                        <button class="order-chat-btn" onclick="openInAppChat('${order.id}', '${order.name || 'العميل'}', '${order.orderId || ''}', 'admin')">
                             <span>شات مباشر</span>
                             <span>💬</span>
                         </button>
@@ -1637,10 +1657,12 @@
             } catch (e) { console.error(e); }
         }
 
-        /* --- محادثة الأوردر الداخلي --- */
-        function openInAppChat(orderDocId, name, orderNum) {
+        /* --- محادثة الأوردر المباشرة --- */
+        function openInAppChat(orderDocId, name, orderNum, role = 'admin') {
             currentActiveChatOrderId = orderDocId;
-            document.getElementById('chatClientName').innerText = `محادثة العميل: ${name}`;
+            currentChatRole = role;
+            
+            document.getElementById('chatClientName').innerText = role === 'admin' ? `محادثة العميل: ${name}` : 'محادثة إدارة المطعم';
             document.getElementById('chatOrderSubtitle').innerText = `طلب رقم #${orderNum}`;
             document.getElementById('inAppChatModal').style.display = 'flex';
 
@@ -1655,9 +1677,9 @@
                 chatContainer.innerHTML = '';
                 snapshot.forEach((docSnap) => {
                     const msg = docSnap.data();
-                    const isAdmin = msg.sender === 'admin';
+                    const isAdminMsg = msg.sender === 'admin';
                     chatContainer.innerHTML += `
-                        <div class="chat-bubble ${isAdmin ? 'admin-msg' : 'client-msg'}">
+                        <div class="chat-bubble ${isAdminMsg ? 'admin-msg' : 'client-msg'}">
                             ${msg.text}
                             <span class="chat-bubble-time">${msg.timeFormatted || ''}</span>
                         </div>
@@ -1683,7 +1705,7 @@
                 const db = window.db;
 
                 await addDoc(collection(db, "orders_log", currentActiveChatOrderId, "messages"), {
-                    sender: "admin",
+                    sender: currentChatRole,
                     text: text,
                     timestamp: Date.now(),
                     timeFormatted: new Date().toLocaleTimeString('ar-EG', { hour: '2-digit', minute: '2-digit' })
@@ -1695,16 +1717,14 @@
             }
         }
 
-        /* --- نظام التثبيت المباشر PWA لجميع الأجهزة --- */
+        /* --- نظام PWA --- */
         function initPWA() {
             if ('serviceWorker' in navigator) {
                 navigator.serviceWorker.register('./sw.js').catch(() => {});
             }
 
             const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
-            if (isStandalone) {
-                return;
-            }
+            if (isStandalone) return;
 
             const isIOS = /iphone|ipad|ipod/.test(window.navigator.userAgent.toLowerCase());
 
