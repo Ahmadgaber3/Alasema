@@ -187,7 +187,7 @@
         
         .menu-list { padding: 15px; max-width: 600px; margin: auto; }
         
-        /* --- كروت المنتجات --- */
+        /* --- كروت المنتجات العادية --- */
         .food-card { 
             background: var(--white); 
             border-radius: 20px; 
@@ -271,6 +271,73 @@
         .offer-card .item-img-box img { width: 100%; height: 100%; object-fit: contain; }
         .offer-card .food-info { padding: 18px; width: 100%; min-height: auto; }
         .offer-card .food-name { font-size: 1.15rem; font-weight: 800; color: var(--accent); }
+
+        /* --- تصميم كارت المشروبات الساخنة الشيك (بدون صورة) --- */
+        .food-card.hot-drink-card {
+            padding: 16px 18px;
+            border-radius: 20px;
+            border: 1px solid rgba(184, 134, 11, 0.25);
+            background: linear-gradient(135deg, var(--white) 0%, rgba(184, 134, 11, 0.03) 100%);
+            margin-bottom: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .hot-drink-card .hot-drink-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+
+        .hot-drink-card .hot-drink-title-wrap {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .hot-drink-card .hot-icon {
+            font-size: 1.2rem;
+        }
+
+        .hot-drink-card .hot-drink-name {
+            font-weight: 900;
+            font-size: 1.15rem;
+            color: var(--main-text);
+        }
+
+        .hot-drink-card .hot-drink-price {
+            font-weight: 900;
+            font-size: 1.25rem;
+            color: var(--accent);
+            background: rgba(184, 134, 11, 0.1);
+            padding: 4px 12px;
+            border-radius: 12px;
+        }
+
+        .hot-drink-card .hot-drink-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 4px;
+        }
+
+        .hot-drink-card .hot-drink-desc {
+            font-size: 0.82rem;
+            color: var(--desc-text);
+            font-weight: 600;
+            margin: 0;
+            flex: 1;
+            padding-left: 10px;
+        }
+
+        .hot-drink-card .order-btn {
+            padding: 8px 22px;
+            font-size: 0.88rem;
+            border-radius: 12px;
+            box-shadow: 0 3px 10px rgba(184, 134, 11, 0.2);
+        }
 
         /* --- زر اطلب الآن --- */
         .order-btn { 
@@ -1389,6 +1456,7 @@
             }
             
             const isOfferCategory = cat.includes('العروض') || cat.toLowerCase().includes('offer');
+            const isHotDrinkCategory = cat.includes('ساخنة') || cat.includes('الساخنة') || cat.toLowerCase().includes('hot');
 
             document.getElementById('menuList').innerHTML = menuData.filter(i => i.category === cat).map(item => {
                 let rawPrice = item.price;
@@ -1415,7 +1483,23 @@
                 const safeImg = itemImage.replace(/'/g, "\\'");
                 const safePrice = (isCustomPrice ? '0' : rawPrice).replace(/'/g, "\\'");
 
-                if (isOfferCategory) {
+                /* العرض الخاص بـ المشروبات الساخنة (بدون صورة - كارت شيك وتنسيق بارز) */
+                if (isHotDrinkCategory) {
+                    return `
+                    <div class="food-card hot-drink-card ${disabledClass}" data-category="${item.category}" data-price="${isCustomPrice ? '0' : rawPrice}">
+                        <div class="hot-drink-header">
+                            <div class="hot-drink-title-wrap">
+                                <span class="hot-icon">☕</span>
+                                <span class="hot-drink-name">${item.name}</span>
+                            </div>
+                            <span class="hot-drink-price">${displayPrice}</span>
+                        </div>
+                        <div class="hot-drink-footer">
+                            <p class="hot-drink-desc">${item.desc ? item.desc : ''}</p>
+                            <button class="order-btn" ${!isEnabled ? 'disabled' : ''} onclick="addToCart(event, this, '${safeName}', '${safeImg}', '${safePrice}')">${btnText}</button>
+                        </div>
+                    </div>`;
+                } else if (isOfferCategory) {
                     return `
                     <div class="food-card offer-card ${disabledClass}" data-category="${item.category}" data-price="${isCustomPrice ? '0' : rawPrice}">
                         <div class="item-img-box">
@@ -1533,7 +1617,7 @@
             const a = document.getElementById('uAddr').value.trim();
             
             if (!n || !p || cart.length === 0) {
-                return alert("يرجى إكمال البيانات واختيار الأصناف");
+                return alert("يرجى إكمال البيانات وااختيار الأصناف");
             }
             if (selectedOrderType === 'delivery' && !a) {
                 return alert("يرجى إدخال عنوان التوصيل بالتفصيل");
