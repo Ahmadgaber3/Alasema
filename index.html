@@ -723,6 +723,81 @@
         .user-fields input { background: #f8f9fa; border: 1px solid #dfe4ea; padding: 16px; border-radius: 14px; width: 100%; margin-bottom: 10px; color: var(--main-text); text-align: right; }
         .submit-btn { background: var(--accent); color: white; border: none; padding: 18px; border-radius: 18px; width: 100%; font-weight: 800; cursor: pointer; }
 
+        /* --- تصميم شاشة اختيار الطعم --- */
+        .flavor-modal {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.6); z-index: 3500; display: none;
+            justify-content: center; align-items: center; padding: 20px;
+        }
+        .flavor-card {
+            background: var(--white); width: 100%; max-width: 360px;
+            border-radius: 28px; padding: 24px 20px; text-align: center;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.25);
+            display: flex; flex-direction: column; align-items: center;
+            border: 1px solid var(--card-border);
+            animation: popUp 0.25s ease-out;
+        }
+        @keyframes popUp {
+            from { transform: scale(0.85); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+        .flavor-title {
+            font-size: 1.2rem;
+            font-weight: 900;
+            color: var(--accent);
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .flavor-sub {
+            font-size: 0.85rem;
+            color: var(--desc-text);
+            font-weight: 700;
+            margin-bottom: 18px;
+        }
+        .flavor-options-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            width: 100%;
+            margin-bottom: 16px;
+        }
+        .flavor-opt-btn {
+            background: var(--bg);
+            border: 1.5px solid rgba(184, 134, 11, 0.25);
+            padding: 12px 10px;
+            border-radius: 16px;
+            font-weight: 800;
+            font-size: 0.95rem;
+            color: var(--main-text);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            transition: all 0.2s ease;
+        }
+        .flavor-opt-btn:active {
+            transform: scale(0.95);
+            background: var(--accent);
+            color: #ffffff;
+            border-color: var(--accent);
+        }
+        .flavor-opt-btn.single-center {
+            grid-column: span 2;
+        }
+        .flavor-close-btn {
+            background: #e2e6ea;
+            border: none;
+            padding: 9px 24px;
+            border-radius: 14px;
+            font-weight: 800;
+            color: #57606f;
+            cursor: pointer;
+            font-size: 0.85rem;
+        }
+
         /* --- تصميم شاشة نجاح الطلب --- */
         .success-modal {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
@@ -1319,6 +1394,23 @@
 
     <div id="menuList" class="menu-list"></div>
 
+    <!-- نافذة اختيار النكهات (ديناميكية للميلك شيك والزبادي) -->
+    <div class="flavor-modal" id="flavorModal" onclick="if(event.target==this) closeFlavorModal()">
+        <div class="flavor-card" onclick="event.stopPropagation()">
+            <div class="flavor-title">
+                <span id="flavorModalIcon">🥤</span>
+                <span id="flavorModalTitle">الصنف</span>
+            </div>
+            <div class="flavor-sub">يرجى اختيار الطعم المفضل لك:</div>
+            
+            <div class="flavor-options-grid" id="flavorOptionsContainer">
+                <!-- الأزرار تتولد ديناميكياً هنا حسب الصنف -->
+            </div>
+
+            <button type="button" class="flavor-close-btn" onclick="closeFlavorModal()">إلغاء</button>
+        </div>
+    </div>
+
     <!-- نافذة نجاح الطلب -->
     <div class="success-modal" id="successModal" onclick="closeSuccessModal()">
         <div class="success-card" onclick="event.stopPropagation()">
@@ -1587,6 +1679,7 @@
         let orderLogsList = [];
         let currentActiveChatOrderId = null;
         let unsubscribeChat = null;
+        let currentFlavorItem = null;
 
         function toggleTheme() {
             document.body.classList.toggle('dark-mode');
@@ -1804,7 +1897,13 @@
 
                 let isEnabled = itemStatusMap[item.name] !== false;
                 let disabledClass = isEnabled ? '' : 'disabled-item';
-                let btnText = isEnabled ? 'اطلب الآن' : 'موقف حالياً';
+
+                // التحقق من الأصناف ذات النكهات (ميلك شيك أو زبادي)
+                const isMilkshake = item.name.includes('ميلك شيك') || item.name.includes('ميلكشيك') || item.name.toLowerCase().includes('milkshake');
+                const isYogurt = item.name.includes('زبادي') || item.name.toLowerCase().includes('yogurt');
+                const hasFlavors = isMilkshake || isYogurt;
+
+                let btnText = isEnabled ? (hasFlavors ? 'اختيار الطعم' : 'اطلب الآن') : 'موقف حالياً';
 
                 let itemImage = item.img;
                 if (item.category.includes('برجر') || item.category.toLowerCase().includes('burger') || item.name.includes('برجر')) {
@@ -1814,6 +1913,10 @@
                 const safeName = item.name.replace(/'/g, "\\'");
                 const safeImg = itemImage.replace(/'/g, "\\'");
                 const safePrice = (isCustomPrice ? '0' : rawPrice).replace(/'/g, "\\'");
+
+                const actionHandler = hasFlavors 
+                    ? `openFlavorModal(event, this, '${safeName}', '${safeImg}', '${safePrice}')`
+                    : `addToCart(event, this, '${safeName}', '${safeImg}', '${safePrice}')`;
 
                 /* 1. قسم المشروبات الساخنة (بدون صورة) */
                 if (isHotDrinkCategory) {
@@ -1828,7 +1931,7 @@
                         </div>
                         <div class="hot-drink-footer">
                             <p class="hot-drink-desc">${item.desc ? item.desc : ''}</p>
-                            <button class="order-btn" ${!isEnabled ? 'disabled' : ''} onclick="addToCart(event, this, '${safeName}', '${safeImg}', '${safePrice}')">${btnText}</button>
+                            <button class="order-btn" ${!isEnabled ? 'disabled' : ''} onclick="${actionHandler}">${btnText}</button>
                         </div>
                     </div>`;
                 } 
@@ -1845,7 +1948,7 @@
                         </div>
                         <div class="dessert-footer">
                             <p class="dessert-desc">${item.desc ? item.desc : ''}</p>
-                            <button class="order-btn" ${!isEnabled ? 'disabled' : ''} onclick="addToCart(event, this, '${safeName}', '${safeImg}', '${safePrice}')">${btnText}</button>
+                            <button class="order-btn" ${!isEnabled ? 'disabled' : ''} onclick="${actionHandler}">${btnText}</button>
                         </div>
                     </div>`;
                 }
@@ -1862,7 +1965,7 @@
                         </div>
                         <div class="safayeh-footer">
                             <p class="safayeh-desc">${item.desc ? item.desc : ''}</p>
-                            <button class="order-btn" ${!isEnabled ? 'disabled' : ''} onclick="addToCart(event, this, '${safeName}', '${safeImg}', '${safePrice}')">${btnText}</button>
+                            <button class="order-btn" ${!isEnabled ? 'disabled' : ''} onclick="${actionHandler}">${btnText}</button>
                         </div>
                     </div>`;
                 }
@@ -1879,7 +1982,7 @@
                         </div>
                         <div class="sandwich-footer">
                             <p class="sandwich-desc">${item.desc ? item.desc : ''}</p>
-                            <button class="order-btn" ${!isEnabled ? 'disabled' : ''} onclick="addToCart(event, this, '${safeName}', '${safeImg}', '${safePrice}')">${btnText}</button>
+                            <button class="order-btn" ${!isEnabled ? 'disabled' : ''} onclick="${actionHandler}">${btnText}</button>
                         </div>
                     </div>`;
                 }
@@ -1896,7 +1999,7 @@
                         </div>
                         <div class="meal-footer">
                             <p class="meal-desc">${item.desc ? item.desc : ''}</p>
-                            <button class="order-btn" ${!isEnabled ? 'disabled' : ''} onclick="addToCart(event, this, '${safeName}', '${safeImg}', '${safePrice}')">${btnText}</button>
+                            <button class="order-btn" ${!isEnabled ? 'disabled' : ''} onclick="${actionHandler}">${btnText}</button>
                         </div>
                     </div>`;
                 }
@@ -1913,7 +2016,7 @@
                         </div>
                         <div class="seafood-footer">
                             <p class="seafood-desc">${item.desc ? item.desc : ''}</p>
-                            <button class="order-btn" ${!isEnabled ? 'disabled' : ''} onclick="addToCart(event, this, '${safeName}', '${safeImg}', '${safePrice}')">${btnText}</button>
+                            <button class="order-btn" ${!isEnabled ? 'disabled' : ''} onclick="${actionHandler}">${btnText}</button>
                         </div>
                     </div>`;
                 }
@@ -1931,7 +2034,7 @@
                             </div>
                             ${item.desc ? `<p class="food-desc">${item.desc}</p>` : ''}
                             <div class="food-card-bottom-row">
-                                <button class="order-btn" ${!isEnabled ? 'disabled' : ''} onclick="addToCart(event, this, '${safeName}', '${safeImg}', '${safePrice}')">${btnText}</button>
+                                <button class="order-btn" ${!isEnabled ? 'disabled' : ''} onclick="${actionHandler}">${btnText}</button>
                             </div>
                         </div>
                     </div>`;
@@ -1950,7 +2053,7 @@
                             </div>
                             ${item.desc ? `<p class="food-desc">${item.desc}</p>` : ''}
                             <div class="food-card-bottom-row">
-                                <button class="order-btn" ${!isEnabled ? 'disabled' : ''} onclick="addToCart(event, this, '${safeName}', '${safeImg}', '${safePrice}')">${btnText}</button>
+                                <button class="order-btn" ${!isEnabled ? 'disabled' : ''} onclick="${actionHandler}">${btnText}</button>
                             </div>
                         </div>
                     </div>`;
@@ -1958,9 +2061,66 @@
             }).join('');
         }
 
-        function addToCart(e, btn, name, img, price) {
+        /* --- نافذة اختيار النكهات --- */
+        function openFlavorModal(e, btn, name, img, price) {
+            currentFlavorItem = {
+                btn: btn,
+                name: name,
+                img: img,
+                price: price,
+                clientX: e ? e.clientX : window.innerWidth / 2,
+                clientY: e ? e.clientY : window.innerHeight / 2
+            };
+
+            const isYogurt = name.includes('زبادي') || name.toLowerCase().includes('yogurt');
+            const modalTitle = document.getElementById('flavorModalTitle');
+            const modalIcon = document.getElementById('flavorModalIcon');
+            const optionsContainer = document.getElementById('flavorOptionsContainer');
+
+            modalTitle.innerText = name;
+            modalIcon.innerText = isYogurt ? '🥣' : '🥤';
+
+            if (isYogurt) {
+                // نكهات الزبادي
+                optionsContainer.innerHTML = `
+                    <button type="button" class="flavor-opt-btn" onclick="selectFlavorOption('لوتس')">🍪 لوتس</button>
+                    <button type="button" class="flavor-opt-btn" onclick="selectFlavorOption('بيستاشيو')">🥜 بيستاشيو</button>
+                    <button type="button" class="flavor-opt-btn" onclick="selectFlavorOption('اوريو')">🍫 اوريو</button>
+                    <button type="button" class="flavor-opt-btn" onclick="selectFlavorOption('نوتيلا')">🌰 نوتيلا</button>
+                `;
+            } else {
+                // نكهات الميلك شيك
+                optionsContainer.innerHTML = `
+                    <button type="button" class="flavor-opt-btn" onclick="selectFlavorOption('فراولة')">🍓 فراولة</button>
+                    <button type="button" class="flavor-opt-btn" onclick="selectFlavorOption('مانجا')">🥭 مانجا</button>
+                    <button type="button" class="flavor-opt-btn" onclick="selectFlavorOption('فانيلا')">🍦 فانيلا</button>
+                    <button type="button" class="flavor-opt-btn" onclick="selectFlavorOption('موز')">🍌 موز</button>
+                    <button type="button" class="flavor-opt-btn single-center" onclick="selectFlavorOption('عنب')">🍇 عنب</button>
+                `;
+            }
+
+            document.getElementById('flavorModal').style.display = 'flex';
+        }
+
+        function closeFlavorModal() {
+            document.getElementById('flavorModal').style.display = 'none';
+            currentFlavorItem = null;
+        }
+
+        function selectFlavorOption(flavor) {
+            if (!currentFlavorItem) return;
+            const { btn, name, img, price, clientX, clientY } = currentFlavorItem;
+            const fullItemName = `${name} (${flavor})`;
+            const isYogurt = name.includes('زبادي') || name.toLowerCase().includes('yogurt');
+            const flyIcon = isYogurt ? '🥣' : '🥤';
+            
+            closeFlavorModal();
+            addToCart({ clientX, clientY }, btn, fullItemName, img, price, true, flyIcon);
+        }
+
+        function addToCart(e, btn, name, img, price, isFromFlavor = false, customFlyIcon = '🍲') {
             const card = btn.closest('.food-card'); 
-            const category = card.dataset.category || '';
+            const category = card ? (card.dataset.category || '') : 'مشروبات باردة';
             let numericPrice = parseFloat(price) || 0;
             
             cart.push({name: name, price: numericPrice, displayPrice: price, img: img, category: category});
@@ -1969,22 +2129,22 @@
             btn.classList.add('added');
             
             setTimeout(() => { 
-                btn.innerHTML = 'اطلب الآن'; 
+                btn.innerHTML = isFromFlavor ? 'اختيار الطعم' : 'اطلب الآن'; 
                 btn.classList.remove('added'); 
             }, 1600);
             
             const fly = document.createElement('div'); 
             fly.className = 'fly-item'; 
-            fly.innerHTML = '🍲'; 
-            fly.style.left = e.clientX + 'px'; 
-            fly.style.top = e.clientY + 'px'; 
+            fly.innerHTML = customFlyIcon; 
+            fly.style.left = (e && e.clientX ? e.clientX : window.innerWidth / 2) + 'px'; 
+            fly.style.top = (e && e.clientY ? e.clientY : window.innerHeight / 2) + 'px'; 
             document.body.appendChild(fly);
 
             const cartBtn = document.getElementById('cartBtn'); 
             const cartPos = cartBtn.getBoundingClientRect();
             
             setTimeout(() => { 
-                fly.style.transform = `translate(${cartPos.left - e.clientX}px, ${cartPos.top - e.clientY}px) scale(0.2)`; 
+                fly.style.transform = `translate(${cartPos.left - (e && e.clientX ? e.clientX : window.innerWidth / 2)}px, ${cartPos.top - (e && e.clientY ? e.clientY : window.innerHeight / 2)}px) scale(0.2)`; 
                 fly.style.opacity = '0'; 
             }, 10);
             
