@@ -339,6 +339,73 @@
             box-shadow: 0 3px 10px rgba(184, 134, 11, 0.2);
         }
 
+        /* --- تصميم كارت الحلويات الشيك (بدون صورة) --- */
+        .food-card.dessert-card {
+            padding: 16px 18px;
+            border-radius: 20px;
+            border: 1px solid rgba(155, 89, 182, 0.25);
+            background: linear-gradient(135deg, var(--white) 0%, rgba(155, 89, 182, 0.04) 100%);
+            margin-bottom: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .dessert-card .dessert-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+
+        .dessert-card .dessert-title-wrap {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .dessert-card .dessert-icon {
+            font-size: 1.2rem;
+        }
+
+        .dessert-card .dessert-name {
+            font-weight: 900;
+            font-size: 1.15rem;
+            color: var(--main-text);
+        }
+
+        .dessert-card .dessert-price {
+            font-weight: 900;
+            font-size: 1.25rem;
+            color: #8e44ad;
+            background: rgba(142, 68, 173, 0.1);
+            padding: 4px 12px;
+            border-radius: 12px;
+        }
+
+        .dessert-card .dessert-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 4px;
+        }
+
+        .dessert-card .dessert-desc {
+            font-size: 0.82rem;
+            color: var(--desc-text);
+            font-weight: 600;
+            margin: 0;
+            flex: 1;
+            padding-left: 10px;
+        }
+
+        .dessert-card .order-btn {
+            padding: 8px 22px;
+            font-size: 0.88rem;
+            border-radius: 12px;
+            box-shadow: 0 3px 10px rgba(142, 68, 173, 0.2);
+        }
+
         /* --- زر اطلب الآن --- */
         .order-btn { 
             background: var(--accent); 
@@ -1457,6 +1524,7 @@
             
             const isOfferCategory = cat.includes('العروض') || cat.toLowerCase().includes('offer');
             const isHotDrinkCategory = cat.includes('ساخنة') || cat.includes('الساخنة') || cat.toLowerCase().includes('hot');
+            const isDessertCategory = cat.includes('حلويات') || cat.includes('الحلويات') || cat.toLowerCase().includes('dessert');
 
             document.getElementById('menuList').innerHTML = menuData.filter(i => i.category === cat).map(item => {
                 let rawPrice = item.price;
@@ -1496,6 +1564,22 @@
                         </div>
                         <div class="hot-drink-footer">
                             <p class="hot-drink-desc">${item.desc ? item.desc : ''}</p>
+                            <button class="order-btn" ${!isEnabled ? 'disabled' : ''} onclick="addToCart(event, this, '${safeName}', '${safeImg}', '${safePrice}')">${btnText}</button>
+                        </div>
+                    </div>`;
+                } else if (isDessertCategory) {
+                    /* العرض الخاص بـ قسم الحلويات (بدون صورة - كارت شيك وتنسيق مخصص) */
+                    return `
+                    <div class="food-card dessert-card ${disabledClass}" data-category="${item.category}" data-price="${isCustomPrice ? '0' : rawPrice}">
+                        <div class="dessert-header">
+                            <div class="dessert-title-wrap">
+                                <span class="dessert-icon">🍰</span>
+                                <span class="dessert-name">${item.name}</span>
+                            </div>
+                            <span class="dessert-price">${displayPrice}</span>
+                        </div>
+                        <div class="dessert-footer">
+                            <p class="dessert-desc">${item.desc ? item.desc : ''}</p>
                             <button class="order-btn" ${!isEnabled ? 'disabled' : ''} onclick="addToCart(event, this, '${safeName}', '${safeImg}', '${safePrice}')">${btnText}</button>
                         </div>
                     </div>`;
