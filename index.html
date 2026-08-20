@@ -1394,11 +1394,11 @@
 
     <div id="menuList" class="menu-list"></div>
 
-    <!-- نافذة اختيار النكهات (ديناميكية للميلك شيك والزبادي) -->
+    <!-- نافذة اختيار النكهات (ديناميكية للأصناف ذات النكهات) -->
     <div class="flavor-modal" id="flavorModal" onclick="if(event.target==this) closeFlavorModal()">
         <div class="flavor-card" onclick="event.stopPropagation()">
             <div class="flavor-title">
-                <span id="flavorModalIcon">🥤</span>
+                <span id="flavorModalIcon">🍰</span>
                 <span id="flavorModalTitle">الصنف</span>
             </div>
             <div class="flavor-sub">يرجى اختيار الطعم المفضل لك:</div>
@@ -1898,10 +1898,14 @@
                 let isEnabled = itemStatusMap[item.name] !== false;
                 let disabledClass = isEnabled ? '' : 'disabled-item';
 
-                // التحقق من الأصناف ذات النكهات (ميلك شيك أو زبادي)
+                // فحص الأصناف ذات النكهات
                 const isMilkshake = item.name.includes('ميلك شيك') || item.name.includes('ميلكشيك') || item.name.toLowerCase().includes('milkshake');
                 const isYogurt = item.name.includes('زبادي') || item.name.toLowerCase().includes('yogurt');
-                const hasFlavors = isMilkshake || isYogurt;
+                const isCrepe = item.name.includes('كريب') || item.name.toLowerCase().includes('crepe');
+                const isCheesecake = item.name.includes('تشيز كيك') || item.name.includes('تشيزكيك') || item.name.toLowerCase().includes('cheesecake');
+                const isKunafa = item.name.includes('كنافة') || item.name.includes('كنافه') || item.name.toLowerCase().includes('kunafa');
+
+                const hasFlavors = isMilkshake || isYogurt || isCrepe || isCheesecake || isKunafa;
 
                 let btnText = isEnabled ? (hasFlavors ? 'اختيار الطعم' : 'اطلب الآن') : 'موقف حالياً';
 
@@ -2073,23 +2077,48 @@
             };
 
             const isYogurt = name.includes('زبادي') || name.toLowerCase().includes('yogurt');
+            const isCrepe = name.includes('كريب') || name.toLowerCase().includes('crepe');
+            const isCheesecake = name.includes('تشيز كيك') || name.includes('تشيزكيك') || name.toLowerCase().includes('cheesecake');
+            const isKunafa = name.includes('كنافة') || name.includes('كنافه') || name.toLowerCase().includes('kunafa');
+            
             const modalTitle = document.getElementById('flavorModalTitle');
             const modalIcon = document.getElementById('flavorModalIcon');
             const optionsContainer = document.getElementById('flavorOptionsContainer');
 
             modalTitle.innerText = name;
-            modalIcon.innerText = isYogurt ? '🥣' : '🥤';
 
             if (isYogurt) {
-                // نكهات الزبادي
+                modalIcon.innerText = '🥣';
                 optionsContainer.innerHTML = `
                     <button type="button" class="flavor-opt-btn" onclick="selectFlavorOption('لوتس')">🍪 لوتس</button>
                     <button type="button" class="flavor-opt-btn" onclick="selectFlavorOption('بيستاشيو')">🥜 بيستاشيو</button>
                     <button type="button" class="flavor-opt-btn" onclick="selectFlavorOption('اوريو')">🍫 اوريو</button>
                     <button type="button" class="flavor-opt-btn" onclick="selectFlavorOption('نوتيلا')">🌰 نوتيلا</button>
                 `;
+            } else if (isCheesecake) {
+                modalIcon.innerText = '🍰';
+                optionsContainer.innerHTML = `
+                    <button type="button" class="flavor-opt-btn" onclick="selectFlavorOption('بلو بيري')">🫐 بلو بيري</button>
+                    <button type="button" class="flavor-opt-btn" onclick="selectFlavorOption('نوتيلا')">🌰 نوتيلا</button>
+                    <button type="button" class="flavor-opt-btn" onclick="selectFlavorOption('لوتس')">🍪 لوتس</button>
+                    <button type="button" class="flavor-opt-btn" onclick="selectFlavorOption('بيستاشيو')">🥜 بيستاشيو</button>
+                `;
+            } else if (isKunafa) {
+                modalIcon.innerText = '🥮';
+                optionsContainer.innerHTML = `
+                    <button type="button" class="flavor-opt-btn" onclick="selectFlavorOption('نوتيلا')">🌰 نوتيلا</button>
+                    <button type="button" class="flavor-opt-btn" onclick="selectFlavorOption('روشيه')">🍫 روشيه</button>
+                    <button type="button" class="flavor-opt-btn single-center" onclick="selectFlavorOption('بيستاشيو')">🥜 بيستاشيو</button>
+                `;
+            } else if (isCrepe) {
+                modalIcon.innerText = '🥞';
+                optionsContainer.innerHTML = `
+                    <button type="button" class="flavor-opt-btn" onclick="selectFlavorOption('بيستو')">🌿 بيستو</button>
+                    <button type="button" class="flavor-opt-btn" onclick="selectFlavorOption('لوتس')">🍪 لوتس</button>
+                    <button type="button" class="flavor-opt-btn single-center" onclick="selectFlavorOption('نوتيلا')">🌰 نوتيلا</button>
+                `;
             } else {
-                // نكهات الميلك شيك
+                modalIcon.innerText = '🥤';
                 optionsContainer.innerHTML = `
                     <button type="button" class="flavor-opt-btn" onclick="selectFlavorOption('فراولة')">🍓 فراولة</button>
                     <button type="button" class="flavor-opt-btn" onclick="selectFlavorOption('مانجا')">🥭 مانجا</button>
@@ -2111,8 +2140,17 @@
             if (!currentFlavorItem) return;
             const { btn, name, img, price, clientX, clientY } = currentFlavorItem;
             const fullItemName = `${name} (${flavor})`;
+            
             const isYogurt = name.includes('زبادي') || name.toLowerCase().includes('yogurt');
-            const flyIcon = isYogurt ? '🥣' : '🥤';
+            const isCrepe = name.includes('كريب') || name.toLowerCase().includes('crepe');
+            const isCheesecake = name.includes('تشيز كيك') || name.includes('تشيزكيك') || name.toLowerCase().includes('cheesecake');
+            const isKunafa = name.includes('كنافة') || name.includes('كنافه') || name.toLowerCase().includes('kunafa');
+            
+            let flyIcon = '🥤';
+            if (isYogurt) flyIcon = '🥣';
+            else if (isCrepe) flyIcon = '🥞';
+            else if (isCheesecake) flyIcon = '🍰';
+            else if (isKunafa) flyIcon = '🥮';
             
             closeFlavorModal();
             addToCart({ clientX, clientY }, btn, fullItemName, img, price, true, flyIcon);
@@ -2120,7 +2158,7 @@
 
         function addToCart(e, btn, name, img, price, isFromFlavor = false, customFlyIcon = '🍲') {
             const card = btn.closest('.food-card'); 
-            const category = card ? (card.dataset.category || '') : 'مشروبات باردة';
+            const category = card ? (card.dataset.category || '') : 'حلويات';
             let numericPrice = parseFloat(price) || 0;
             
             cart.push({name: name, price: numericPrice, displayPrice: price, img: img, category: category});
